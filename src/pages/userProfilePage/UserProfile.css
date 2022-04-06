@@ -1,0 +1,21 @@
+/* main div */
+.proDiv{
+    width : 100%;
+    background-color: #ecf0f1;
+    padding : 50px;
+    padding-top : 30px;
+}
+
+@media screen and (max-width: 768px){
+    .proDiv{
+        padding : 10px;
+        padding-top : 10px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .proDiv{
+        padding : 10px;
+        padding-top : 10px;
+    }
+}

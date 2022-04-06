@@ -1,0 +1,137 @@
+.homeCards{
+    margin-top:20px
+}
+
+/* Head */
+.cardMainTitle{
+    font-size: 30px;
+    color : #222f3e;
+    font-weight:bold
+}
+
+/* Card  */
+.myCard{
+    max-width : 95%;
+    border : none
+}
+
+/* Card data */
+.cardData{
+    display : flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items : center;
+}
+
+/* Card Header */
+.cardHead{
+    font-size : 22px;
+    font-weight: 700;
+}
+
+/* Card text */
+.cardText{
+    font-size : 15px;
+    width : 100%;
+    font-weight: 550;
+    padding-top: 10px;
+    text-align: center;
+}
+
+/* Card Button */
+.cardBtn{
+    background-color: #079992;
+    color : #FFFFFF;
+    font-weight : 600;
+    font-size : 17px;
+    width : 150px;
+    border-radius : 10px;
+    margin-top : 10px;
+    height : 40px
+}
+
+.cardBtn:hover{
+    color : #079992;
+}
+
+@media screen and  (max-width: 992px) {
+    .cardMainTitle{
+        font-size : 25px;
+    }
+    .cardHead{
+        font-size : 19px;
+    }
+    .cardText{
+        height : 170px;
+        font-size : 14px
+    }
+    .cardBtn{
+        font-size : 15px;
+    }
+}
+
+@media screen and  (max-width: 768px) {
+    .cardMainTitle{
+        font-size : 19px;
+    }
+    .cardHead{
+        font-size : 13px;
+    }
+    .cardText{
+        height : 150px;
+        font-size : 11px
+    }
+    .cardBtn{
+        font-size : 12px;
+        height : 35px;
+    }
+}
+
+
+@media screen and  (max-width: 576px) {
+    .cardMainTitle{
+        font-size : 17px;
+    }
+    .cardHead{
+        font-size : 13px;
+    }
+    .cardText{
+        height : 110px;
+        font-size : 11px
+    }
+    .cardBtn{
+        font-size : 12px;
+        height : 35px;
+    }
+}
+
+@media screen and  (max-width: 480px) {
+    .cardMainTitle{
+        font-size : 17px;
+    }
+    .cardHead{
+        font-size : 18px;
+    }
+    .cardText{
+        font-size : 13px;
+        height : 60px;
+    }
+    .cardBtn{
+        font-size : 12px;
+        height : 35px;
+    }
+}
+
+@media screen and  (max-width: 375px) {
+    .cardText{
+        font-size : 13px;
+        height : 70px;
+    }
+}
+
+@media screen and  (max-width: 320px) {
+    .cardText{
+        font-size : 13px;
+        height : 100px;
+    }
+}

@@ -1,0 +1,22 @@
+/* main div */
+.signupPageMain{
+    height : 100vh;
+    width : 100%;
+    background-color: #dfe6e9;
+    padding : 100px;
+    padding-top : 50px;
+}
+
+@media screen and (max-width: 1024px){
+    .signupPageMain{
+        padding-top : 20px;
+    }
+}
+
+
+@media screen and (max-width: 425px){
+    .signupPageMain{
+        padding: 20px
+
+    }
+}

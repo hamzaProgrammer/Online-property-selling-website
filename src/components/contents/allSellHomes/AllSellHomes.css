@@ -1,0 +1,126 @@
+/* search div */
+.sellSearchSection{
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom : 10px;
+    margin-bottom : 15px;
+    margin-top : 10px;
+}
+
+/* text */
+.SearchText{
+    font-size : 18px;
+    color : #40739e;
+    font-weight : 700;
+}
+
+/* search field */
+.searchCity{
+    width : 500px;
+}
+
+@media screen and (max-width: 2000px){
+    .searchCity{
+        width : 800px;
+    }
+}
+
+@media screen and (max-width: 1600px){
+    .searchCity{
+        width : 650px;
+    }
+    .SearchText{
+        font-size : 16px;
+    }
+}
+
+@media screen and (max-width: 1400px){
+    .searchCity{
+        width : 500px;
+    }
+
+    .SearchText{
+    font-size : 18px;
+    color : #40739e;
+    font-weight : 700;
+}
+}
+
+@media screen and (max-width: 1200px){
+    .searchCity{
+        width : 450px;
+    }
+    .SearchText{
+        font-size : 16px;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .searchCity{
+        width : 380px;
+    }
+    .SearchText{
+        font-size : 15px;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .searchCity{
+        width : 360px;
+    }
+    .SearchText{
+        font-size : 15px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .searchCity{
+        width : 380px;
+    }
+    .SearchText{
+        font-size : 15px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .searchCity{
+        width : 380px;
+    }
+    .SearchText{
+        font-size : 15px;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .sellSearchSection{
+        flex-direction : column
+    }
+    .searchCity{
+        width : 380px;
+    }
+    .SearchText{
+        font-size : 17px;
+        margin-bottom : 10px;
+    }
+}
+
+@media screen and (max-width: 375px){
+    .searchCity{
+        width : 350px;
+    }
+    .SearchText{
+        font-size : 17px;
+        margin-bottom : 10px;
+    }
+}
+
+@media screen and (max-width: 375px){
+    .searchCity{
+        width : 300px;
+    }
+    .SearchText{
+        font-size : 17px;
+        margin-bottom : 10px;
+    }
+}

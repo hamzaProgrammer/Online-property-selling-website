@@ -1,0 +1,129 @@
+.mainSpace{
+    display : flex;
+    justify-content: space-between;
+    height : 65px;
+    min-width : 100%;
+    padding-left : 20px;
+    padding-right: 20px;
+    margin-left: -50px;
+    margin-right: -50px;
+    background-color : lightgoldenrodyellow;
+}
+
+.logoDiv{
+    display : flex;
+    justify-content : space-between;
+    align-items : center;
+}
+
+.logoImage{
+    max-width : 50px;
+    max-height : 50px;
+    border-radius: 50%;
+}
+
+.menuIcon{
+    display : none;
+}
+
+.myMenu{
+    display : block;
+    border-left : 2px solid transparent;
+}
+
+.listMenu{
+    display : flex;
+}
+
+
+.dropMenu{
+    background-color: #FFFFFF;
+    width : 200px;
+}
+
+.linkItem{
+    font-size: 17px;
+    font-weight: bold;
+    text-align: justify;
+    padding-left : -20px;
+    cursor : pointer
+}
+
+.linkItemText{
+    text-align : center;
+    padding-right: 15px;
+    padding-bottom : 5px
+}
+
+.linkItem:hover , .linkItemText:hover{
+    background-color: red;
+    color : #FFFFFF;
+    border-radius : 10px
+}
+
+.searchField{
+    display : flex;
+    justify-content : center;
+    width : 300px;
+    align-items : center;
+}
+
+.search{
+    display : block;
+    min-width: 100%;
+    border : 2px solid transparent;
+}
+
+.searchIcon{
+    display : none
+}
+
+.flexDiv{
+    flex : 1;
+}
+
+@media only screen and (max-width: 768px) {
+    .myMenu{
+        display : none;
+    }
+
+    .menuIcon{
+        display : block;
+        font-size : 25px;
+        margin-right : 10px;
+        color : #2c3e50;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .searchField{
+        width : 220px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .search{
+        display : none
+    }
+    .searchField{
+        justify-content : start;
+    }
+    .searchIcon{
+        display : block;
+        cursor: pointer;
+        font-size : 20px;
+    }
+    .searchField{
+        max-width : 150px;
+    }
+    .logoDiv{
+        min-width : 50px;
+    }
+    .logoImage{
+        max-width : 40px;
+        max-height : 40px;
+    }
+    .flexDiv{
+        flex : 0;
+    }
+}

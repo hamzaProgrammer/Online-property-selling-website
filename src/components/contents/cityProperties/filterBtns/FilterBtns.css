@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,500&display=swap');
+
+/* filter button main div */
+.filterButtons{
+    display : flex;
+    justify-content : space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 10px;
+    width : 950px;
+}
+
+/* filter btn */
+.filterBtn{
+    background-color : transparent;
+    color : #2c3e50;
+    font-size : 16px;
+    border : 1px solid #2c3e50;
+    font-weight : 600;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    height : 40px;
+}
+
+.filterBtn:hover{
+    background-color : #f5f6fa;
+    color : #2c3e50;
+    border : 1px solid transparent;
+}
+
+.dull{
+    background-color: #f5f6fa;
+    color : #2c3e50;
+    border : 1px solid transparent
+}
+
+.dull:hover{
+    background-color: #dcdde1;
+    color : #2c3e50;
+    border : 1px solid #dcdde1;
+}
+
+/* Price ranger */
+.priceRanger{
+    display : flex;
+    flex-direction: column;
+    align-items : center;
+    width : 300px;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color : #FFFFFF;
+    padding : 10px;
+    border-radius: 10px;
+}
+
+/* Price Range selector */
+.priceRangerHead{
+    font-size : 14px;
+    color : #353b48;
+    font-weight : bold
+}
+
+/* Input price */
+.inputPrice{
+    width : 40%;
+    margin-right : 10px;
+    border-radius: 10px;
+    border: 1px solid #353b48;
+    font-weight : bold
+}
+
+.inputPrice:hover{
+    background-color: #dcdde1;
+    color : #2c3e50;
+    border : 1px solid #dcdde1;
+}
+
+/* Price rnage menu */
+.priceRngMenu{
+    color : #FFFFFF;
+    border-radius: 10px;
+    border : 1px solid #dcdde1;
+}
+
+/* Price range menu item */
+.priceRngMenuItem{
+    background-color: #FFFFFF;
+    color : #273c75;
+    font-weight: 600;
+}
+
+.priceRngMenuItem:hover{
+    background-color: #273c75;
+    color : #FFFFFF
+}
+
+/* bedrooms dropdown */
+.bedRooms{
+    width: 60px;
+}
+
+.priceRngMenuItem:hover .homeCheckBox{
+    color : #FFFFFF;
+}
+
+/* border button at last */
+.borderBtn{
+    background-color : #FFFFFF;
+    color : #192a56;
+    border : 1px solid #44bd32;
+}
+
+.borderBtn:hover{
+    background-color : #44bd32;
+    color : #FFFFFF;
+    border : 1px solid transparent;
+}
+
+.filterMenu{
+    font-size : 20px;
+    color : #2c3e50;
+    display : none
+}
+
+.drawerFirstDiv{
+    display : flex;
+    flex-direction : column;
+    height : 100%;
+}
+
+.filterHideFirst{
+    display : block;
+}
+
+.filterHideSec{
+    display :block
+}
+
+.priceDrop{
+    display : flex;
+    justify-content : center;
+    width : 100%;
+    margin-top : 10px;
+    align-items : center;
+}
+
+.bedRooms{
+    width: 100%;
+}
+.hideSearch{
+    display : block;
+}
+
+.hideDull{
+    display : block
+}
+
+.otherBtn{
+    display : block
+}
+
+.showDull{
+    display : none
+}
+
+@media screen and (max-width:1200px){
+    .filterButtons{
+        flex-direction: flex-start;
+        width : 1000px
+    }
+}
+
+@media screen and (max-width: 992px){
+    .filterButtons{
+        flex-direction: flex-start;
+        width : 900px
+    }
+}
+
+@media screen and (max-width:768px){
+    .filterButtons{
+        flex-direction: flex-start;
+        width : 750px
+    }
+    
+    .filterHideSec{
+        display :none
+    }
+    .drawerFirstDivSec{
+        margin-top : -285px;
+    }  
+    .priceDrop{
+        flex-direction : column
+    }
+}
+
+@media screen and (max-width:576px){
+    .filterButtons{
+        flex-direction: flex-start;
+        width : 100%
+    }
+    .filterHideFirst{
+    display : none;
+}
+    .filterHideSec{
+        display :none;
+    }
+    .filterMenu{
+        display : block
+    }
+    .drawerFirstDivSec{
+        margin-top : -285px;
+    }  
+    .priceBtn{
+        min-width : 200px
+    }   
+
+}
+
+@media screen and (max-width:425px){
+    .filterButtons{
+        flex-direction: space-around;
+        width : 400px
+    }   
+
+}
+
+@media screen and (max-width:375px){
+    .hideDull{
+    display : none
+} 
+
+    .showDull{
+    display : block
+}
+    .filterButtons{
+        flex-direction: space-around;
+        width : 330px
+    }   
+
+}
+
+@media screen and (max-width:375px){
+    .hideDull{
+    display : none
+} 
+
+    .showDull{
+    display : block
+}
+    .filterButtons{
+        flex-direction: space-around;
+        width : 300px
+    }   
+
+}

@@ -1,0 +1,299 @@
+/* card */
+.userCard{
+    width : 100%;
+    height : 510px;
+    border-radius : 10px;
+}
+
+/* card data */
+.userCardData{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    flex-direction: column;
+    height : 100%;
+}
+
+/* card image */
+.userProfImage{
+    width : 150px;
+    height : 150px;
+    border-radius : 50%;
+    object-fit : cover
+}
+
+/* Details of user */
+.subDetOfUser{
+    margin-top : 20px;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    flex-direction: column;
+}
+
+/* user name */
+.nameOfUser{
+    font-size : 27px;
+    color : #636e72;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* tag of user */
+.tagOfUser{
+    font-size : 13px;
+    color : #2d3436;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* form of user contact */
+.userProfForm{
+    width : 100%;
+    margin-left : 30px
+}
+
+/* contact us title */
+.contactTitle{
+    font-size : 20px;
+    margin-top : 20px;
+    color : #6c5ce7;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* form item */
+.userFormItem{
+    width : 120%;
+    border-radius : 10px;
+    border : 1px solid #b2bec3;
+}
+
+/* user form button */
+.userFormBtn{
+    background-color : #0984e3;
+    color : #FFFFFF;
+    border : 1px solid #dfe6e9;
+    border-radius : 15px;
+    margin-left : -75px;
+    margin-top : 10px;
+    font-weight : 600;
+    max-width : 100%
+}
+
+/* user contact details */
+.userContactDet{
+    display : flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* user name title */
+.userNameTitle{
+    font-size : 19px;
+    color : #636e72;
+    font-weight: 700;
+}
+
+
+/*    Medium Screen    */
+
+
+
+/* user profile for medium screen */
+.userProfImg{
+    width : 80px;
+    height : 80px;
+    border-radius : 50%;
+    object-fit : cover;
+}
+
+/* user name */
+.nameOfUserMini{
+    font-size : 18px;
+    color : #636e72;
+    font-weight: 700;
+    text-align: left;
+}
+
+/* tag */
+.tagOfUserMini{
+    font-size : 10px;
+    color : #2d3436;
+    font-weight: 600;
+    width : 100%;
+    font-weight: 400;
+    margin-top : 15px;
+}
+
+
+.userCardDataMini{
+    display : flex;
+    justify-content : flex-start;
+    flex-direction: column;
+    padding-left : 15px;
+}
+
+.userProfFormMini{
+    width : 100%;
+    margin-left : 0px;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items : center
+}
+
+
+/* form items */
+.userFormItemMini{
+    width : 120%;
+    border-radius : 10px;
+    border : 1px solid #b2bec3;
+}
+
+.userFormBtnMini{
+    background-color : #0984e3;
+    color : #FFFFFF;
+    margin-left : -60px;
+    border : 1px solid #dfe6e9;
+    border-radius : 15px;
+    margin-top : 10px;
+    font-weight : 600;
+    min-width : 150px
+}
+
+.contactTitleMini{
+    font-size : 20px;
+    margin-top : 0px;
+    margin-bottom : 10px;
+    color : #6c5ce7;
+    font-weight: 700;
+    text-align: start;
+}
+
+.sliderText{
+    color : #2d3436;
+    font-size : 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: 600;
+    margin-top : 15px;
+    padding-bottom: 15px;
+    background-color: #FFFFFF;
+    padding-left : 20px;
+    padding-top : 10px;
+}
+
+
+@media screen and (max-width:1200px){
+    .userFormItem{
+        width : 130%;
+    }
+    .userProfForm{
+        margin-left : 10px;
+        margin-top: 10px;
+    }
+    .userFormBtn{
+        margin-left : -50px;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .userFormItem{
+        width : 130%;
+    }
+    .userProfForm{
+        margin-left : 10px;
+        margin-top: 10px;
+    }
+    .userFormBtn{
+        margin-left : -55px;
+        min-width : 150px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .userProfImg{
+        width : 70px;
+        height : 70px
+    }
+    .nameOfUserMini{
+        font-size : 12px
+    }
+    .tagOfUserMini{
+        font-size : 10px;
+        min-width : 100%;
+        margin-top : 5px;
+        word-wrap: break-word;
+    }
+    .userFormItemMini{
+        width : 180px
+    }
+    .userFormBtnMini{
+        margin-left : -45px;
+        margin-top : 10px;
+        max-width : 120px
+    }
+}
+
+@media screen and (max-width: 425px){
+    .userProfImg{
+        margin-left : 100px;
+        width : 150px;
+        height : 150px
+    }
+    .nameOfUserMini{
+        font-size : 22px
+    }
+    .userCardDataMini{
+        justify-content : center;
+        align-items: center;
+    }
+    .tagOfUserMini{
+        font-size : 15px;
+        min-width : 100%;
+        margin-top : 5px;
+        text-align : center
+    }
+    .userFormItemMini{
+        width : 330px;
+    }
+    .userFormBtnMini{
+        margin-left : -45px;
+        margin-top : 10px;
+        max-width : 120px
+    }
+}
+
+@media screen and (max-width: 375px){
+    .userProfImg{
+        margin-left : 80px;
+        width : 150px;
+        height : 150px
+    }
+    .userFormItemMini{
+        width : 300px;
+    }
+    .userFormBtnMini{
+        margin-left : -45px;
+        margin-top : 10px;
+        max-width : 120px
+    }
+}
+
+@media screen and (max-width: 320px){
+    .userProfImg{
+        margin-left : 55px;
+        width : 150px;
+        height : 150px
+    }
+    .userFormItemMini{
+        max-width : 250px;
+    }
+    .userFormBtnMini{
+        margin-left : -20px;
+        margin-top : 10px;
+        max-width : 120px
+    }
+}

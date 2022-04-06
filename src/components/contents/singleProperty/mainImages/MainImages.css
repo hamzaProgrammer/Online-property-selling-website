@@ -1,0 +1,70 @@
+/* Image div */
+.mainImage{
+    height : 400px;
+}
+
+/* Right side images */
+.rightImages{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    flex-direction : column;
+    padding-left : 5px;
+    height : 400px
+}
+
+.images:hover{
+    width : 110%;
+    height : 110%;
+    margin-left : -35px;
+    opacity: 0.7;
+    transition: .5s ease;
+    cursor : pointer
+}
+
+/* Ribbon */
+.ribbon{
+    width : 80px;
+    font-weight : 600;
+    height : 25px;
+    font-size : 16px;
+}
+
+
+@media screen and (max-width : 576px){
+    .rightImages{
+        margin-top : 140px;
+        padding-left : 0;
+        margin-bottom : 80px;
+        height : 250px
+    }
+    .mainImage{
+        height : 250px
+    }
+}
+
+@media screen and (max-width : 480px){
+    .rightImages{
+        padding-left : 30px;
+        width : 95%;
+    }
+    .mainImage{
+        padding-left : 30px;
+        padding-right : 25px
+    }
+    .ribbon{
+        margin-left : -100px
+    }
+}
+
+@media screen and (max-width : 375px){
+    .rightImages{
+        margin-top : 90px
+    }
+}
+
+@media screen and (max-width : 320px){
+    .rightImages{
+        margin-top : 60px
+    }
+}

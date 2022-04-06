@@ -1,0 +1,101 @@
+/* edit profile main div */
+.editProfileMainDiv{
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+    justify-content : center;
+}
+
+/* name */
+.editProfileMainDiv .name{
+    font-size : 16px;
+    font-weight : 600;
+    color : #2d3436
+}
+
+
+/* edit profile button */
+.editProfileMainDiv .profileBtns{
+    background-color : transparent;
+    border : none;
+    font-size : 16px;
+    height : 45px;
+    color : #636e72;
+    font-weight : 600;
+    border-top : 1px solid #dfe6e9;
+    box-shadow: none;
+}
+
+/* main div secondary */
+.editProfileSecDiv{
+    display : flex;
+    flex-direction: column;
+    padding-left : 30px;
+    padding-top : 20px;
+}
+
+/* head */
+.editProfileSecDiv .editprofileMainHead{
+    font-weight : 700;
+    color : #2d3436;
+    font-size : 22px;
+}
+
+/* label */
+.editProfileSecDiv .myLabel{
+    font-size : 16px;
+    font-weight : 700;
+    margin-top : 15px;
+    color : #636e72;
+}
+
+/* input  */
+.editProfileSecDiv .myInput{
+    width : 400px;
+    border-radius : 5px;
+    margin-top : 5px;
+    height : 35px;
+    border : 1px solid #b2bec3;
+}
+
+/* submit button */
+.editProfileSecDiv .editProfileSubBtn{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    margin-top: 25px;
+    width : 400px;
+}
+
+@media screen and (max-width:576px){
+    .editProfileSecDiv .myInput{
+        width : 330px;
+    }
+    .editProfileSecDiv .editProfileSubBtn{
+        width : 330px;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .editProfileSecDiv .myLabel{
+        font-size : 12px;
+    }
+    .editProfileSecDiv .myInput{
+        height : 30px;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .editProfileSecDiv .myInput{
+        width : 300px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .editProfileSecDiv .myInput{
+        width : 270px;
+    }
+    .editProfileSecDiv .editProfileSubBtn{
+        width : 250px;
+    }
+}

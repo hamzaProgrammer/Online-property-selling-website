@@ -1,0 +1,291 @@
+/* man div Row */
+.addPropertyRow{
+    margin-top : 20px;
+    padding-top : 10px;
+    margin-left : 30px;
+    margin-bottom : 10px;
+    margin-right : 30px;
+    border-radius : 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: #FFFFFF;
+    padding-bottom : 15px;
+}
+
+
+/* main div first  */
+.addPropertyFirstDiv{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-right : 10px
+}
+
+/* second div */
+.addPropertySecDiv{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-right : 10px;
+    padding-left : 10px;
+    margin-top : 45px;
+}
+
+/* third div */
+.addPropertyThirdDiv{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-left : 10px;
+    margin-top : 45px;
+}
+
+
+/* add property input filed */
+.addPropertyInput{
+    width : 300px;
+    border: 1px solid #636e72;
+    border-radius: 5px;
+    margin-bottom : 20px
+}
+
+/* Add Property head */
+.addPropertyHead{
+    font-size : 20px;
+    font-weight : bold;
+    color : #2d3436;
+    padding-left : 20px;
+    margin-bottom : 20px;
+}
+
+.ant-select-selection-placeholder {
+  color:#2d3436;
+  font-weight : 600
+}
+
+.addPropertyInput::placeholder{
+    color : #2d3436;
+    font-weight : 600
+}
+
+
+/* text area */
+.addPropertyTextArea{
+    width : 300px;
+    margin-bottom : 15px;
+    border: 1px solid #636e72;
+}
+
+.addPropertyTextArea::placeholder{
+    color : #2d3436;
+    font-weight : 600
+}
+
+/* add Property button */
+.addPropertyBtn{
+    background-color: #079992;
+    color : #FFFFFF;
+    border : 1px solid transparent;
+    border-radius : 5px;
+    margin-top : 20px;
+    width : 150px;
+    font-weight : 600;
+    font-size : 15px;
+    height : 35px
+}
+
+.addPropertyBtn:hover{
+    background-color: #FFFFFF;
+    color : #079992;
+}
+
+
+/* uploader */
+.uploader{
+    background-color : #546de5;
+    color : #ffffff;
+    font-weight : 600;
+    width : 300px;
+    margin-bottom: 5px;
+    margin-top : 5px;
+}
+
+
+/* hiding uploader */
+.uploaderHide{
+    background-color : #546de5;
+    color : #ffffff;
+    font-weight : 600;
+    width : 300px;
+    margin-bottom: 5px;
+    margin-top : 5px;
+    display : none;
+}
+
+/* hiding desc */
+.addPropertyDescHide{
+    display : none;
+    width : 300px;
+    margin-bottom : 15px;
+    border: 1px solid #636e72;
+}
+
+/* delete buttons */
+.delProperty{
+    display : flex;
+    justify-content : space-between;
+    align-items : center
+}
+
+/* delete button */
+.PropdelBtn{
+    width : 120px
+}
+
+/* image preview */
+.imgPreViewProp{
+    display : none;
+}
+
+.viewProperDiv{
+    display : block
+}
+
+@media screen and (max-width:1024px){
+    .addPropertyInput{
+        width : 250px
+    }
+    .addPropertyTextArea{
+        width : 250px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .addPropertyInput{
+        width : 200px
+    }
+    .addPropertyTextArea{
+        width : 200px;
+    }
+    .addPropertyBtn{
+        width : 200px
+    }
+    .delProperty{
+        flex-direction : column
+    }
+    .PropdelBtn{
+        width : 120px
+    }
+}
+
+@media screen and (max-width: 576px){
+    .addPropertyInput{
+        width : 320px
+    }
+    .addPropertyTextArea{
+        width : 320px;
+    }
+    .addPropertySecDiv{
+        margin-top: -60px;
+    }
+    .addPropertyThirdDiv{
+        margin-top: 0px;
+    }
+    .addPropertyBtn{
+        width : 150px;
+        margin-bottom: 10px;
+        margin-top: 0px;
+    }
+    .uploader{
+        display : none;
+    }
+    .uploaderHide{
+        display : block
+    }
+    .addPropertyBtn{
+        margin-top : 40px
+    }
+    .addPropertyDescHide{
+        display : block;
+    }
+    .addPropertyTextArea{
+        display : none
+    }
+    .imgPreViewProp{
+        display : block;
+    }
+    .viewProperDiv{
+        display : none
+    }
+    .PropdelBtn{
+        margin-bottom: 0
+    }
+}
+
+@media screen and (max-width: 425px){
+    .addPropertyInput{
+        width : 300px
+    }
+    .addPropertyTextArea{
+        width : 300px;
+    }
+    .addPropertySecDiv{
+        padding : 0
+    }
+    .addPropertyFirstDiv{
+        padding-left : 10px
+    }
+    .addPropertyThirdDiv{
+        padding : 0
+    }
+    .addPropertyRow{
+        padding-left : 20px;
+    }
+}
+
+@media screen and (max-width: 375px){
+    .addPropertyInput{
+        width : 280px
+    }
+    .addPropertyTextArea{
+        width : 280px;
+    }
+    .addPropertySecDiv{
+        padding : 0
+    }
+    .addPropertyFirstDiv{
+        margin-left : -10px
+    }
+    .addPropertyThirdDiv{
+        padding : 0
+    }
+    .addPropertyRow{
+        padding-left : 10px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .addPropertyInput{
+        width : 220px
+    }
+    .addPropertyTextArea{
+        width : 220px;
+    }
+    .addPropertySecDiv{
+        padding : 0
+    }
+    .addPropertyFirstDiv{
+        margin-left : 0px
+    }
+    .addPropertyThirdDiv{
+        padding : 0
+    }
+    .addPropertyRow{
+        padding-left : 10px;
+    }
+    .addPropertyBtn{
+        width : 220px
+    }
+}

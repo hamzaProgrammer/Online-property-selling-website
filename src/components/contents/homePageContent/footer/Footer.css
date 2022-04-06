@@ -1,0 +1,92 @@
+/* main item */
+.singleItem{
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
+}
+
+/* Main Head */
+.mainHead{
+    font-size : 18px;
+    font-weight: 600;
+    color : #222f3e
+}
+
+/* List item */
+.listItem{
+    display : flex;
+    justify-content : flex-start;
+    align-items :center;
+    height :  30px
+}
+
+/* List item text */
+.listText{
+    font-weight: 400;
+    color : #576574;
+    font-size: 13px;
+}
+
+@media screen and (max-width : 992px){
+    .mainHead{
+        font-size : 15px;
+    }
+    .listText{
+        font-size : 12px
+    }
+}
+
+@media screen and (max-width : 768px){
+    .mainHead{
+        font-size : 13px;
+    }
+    .listText{
+        font-size : 10px
+    }
+}
+
+@media screen and (max-width : 576px){
+    .mainHead{
+        font-size : 12px;
+    }
+    .listText{
+        font-size : 10px
+    }
+}
+
+@media screen and (max-width : 480px){
+    .mainHead{
+        font-size : 15px;
+    }
+    .listText{
+        font-size : 12px
+    }
+    .singleItem{
+        margin-bottom : 20px;
+    }
+}
+
+@media screen and (max-width : 375px){
+    .mainHead{
+        font-size : 14px;
+    }
+    .listText{
+        font-size : 10px
+    }
+    .singleItem{
+        margin-bottom : 20px;
+    }
+}
+
+@media screen and (max-width : 320px){
+    .mainHead{
+        font-size : 12px;
+    }
+    .listText{
+        font-size : 8px
+    }
+    .singleItem{
+        margin-bottom : 20px;
+    }
+}

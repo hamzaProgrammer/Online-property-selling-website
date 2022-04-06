@@ -1,0 +1,43 @@
+/*    Side Bar  CSS    */
+.sidebar{
+    background-color : #FFFFFF;
+    display : flex;
+    min-width : 200px;
+    max-height : 100vh;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
+    height: 100%;
+    /* margin-top : -150px;
+    top: 0;
+    left: 0;
+    overflow-x: hidden; */
+    /* overflow: auto;
+    height: 100vh;
+    position: static;
+    left: 0; */
+}
+
+.homeIcon{
+  font-size : 30px;
+  color : #574b90
+}
+
+.homeIcon1{
+  font-size : 30px;
+  color : #303952;
+}
+
+
+.mainLogo{
+  min-height : 70px;
+  margin-bottom : 15px;
+  color : #546de5
+}
+
+.space{
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+  align-items : center;
+}

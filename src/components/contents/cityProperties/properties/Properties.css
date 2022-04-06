@@ -1,0 +1,233 @@
+/* left side section */
+.propertyLeftSide{
+    display : flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-left : 0px;
+}
+
+/* Main haeding */
+.propertyLeftSideHead{
+    font-size : 22px;
+    font-weight: bold;
+    color : #2d3436;
+}
+
+
+/* lrft side sub heading */
+.propertyLeftSideSubHead{
+    font-size : 14px;
+    margin-top : 10px;
+    font-weight : 500;
+    color : #636e72;
+}
+
+/* properties div */
+.leftSideProperties{
+    display : flex;
+    justify-content : space-between;
+    flex-direction: row;
+    padding-left : 30px;
+    padding-right : 30px;
+    margin-top : 20px;
+    align-items: center;
+}
+
+/* single property */
+.property{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+/* carousel */
+.caro{
+    max-width: 250px
+}
+
+/* property details */
+.propDetail{
+    display :flex;
+    align-items: center;
+    justify-content :space-around;
+    width : 100%
+}
+
+/* property price */
+.propPrice{
+    font-size : 22px;
+    font-weight : 600;
+    margin-bottom : 5px;
+    margin-top : 5px;
+    color : #2d3436;
+}
+
+/* icons */
+.qualityIcon{
+    font-size : 14px;
+    margin-left: 5px;
+    color : #6c5ce7;
+}
+/* icon text */
+.qualityName{
+    font-size : 15px;
+    color : #636e72;
+    font-weight: 600;
+    margin-left : 5px;
+}
+
+/* address */
+.propAddre{
+    font-size : 17px;
+    font-weight: 500;
+    width : 80%;
+    color : #2d3436;
+    word-wrap: break;
+}
+
+/* carouse; image hover effect */
+.carrImagee:hover{
+    transition: 0.5 ease;
+    opacity : 0.6;
+    cursor : pointer;
+}
+
+.gglMap{
+    padding-right : 0px;
+    max-width : 900px;
+    max-height : 100px
+}
+
+/* no content text */
+.noContentText{
+    font-size : 18px;
+    font-weight : 600;
+    text-align : center;
+}
+
+
+
+
+@media screen and (max-width: 1200px){
+    .carrImagee{
+        width : 100%
+    }
+    .gglMap{
+        max-width : 500px;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .gglMap{
+        max-width : 450px;
+        padding-left : 50px
+    }
+    .propertyLeftSideHead{
+        padding-left : 30px
+    }
+    .propertyLeftSideSubHead{
+        padding-left : 30px
+    }
+}
+
+@media screen and (max-width: 992px){
+    .gglMap{
+        max-width : 400px;
+        padding-left : 80px
+    }
+    .propAddre{
+        font-size : 14px
+    }
+    .propPrice{
+        font-size : 18px
+    }
+    .carrImagee{
+        width : 95%
+    }
+    .propertyLeftSideHead{
+        font-size : 17px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .carrImagee{
+        width : 250px;
+        border-radius: 10px;
+    }
+    .propAddre{
+        font-size : 15px
+    }
+    .propPrice{
+        font-size : 19px
+    }
+    .gglMap{
+        max-width : 700px;
+        padding-left : 10px;
+        min-height : 400px
+    }
+    .propertyLeftSideHead{
+        padding-left : 30px
+    }
+    .propertyLeftSideSubHead{
+        padding-left : 30px
+    }
+}
+
+@media screen and (max-width: 576px){
+    .carrImagee{
+        width : 230px;
+        border-radius: 10px;
+    }
+    .propAddre{
+        font-size : 12px
+    }
+    .propPrice{
+        font-size : 19px
+    }
+}
+
+@media screen and (max-width: 425px){
+    .leftSideProperties{
+        flex-direction : column;
+    }
+    .property{
+        margin-bottom: 15px;
+    }
+    .carrImagee{
+        width : 230px;
+        border-radius: 10px;
+    }
+    .propAddre{
+        font-size : 15px;
+        width : 100%
+    }
+    .propPrice{
+        font-size : 19px
+    }
+}
+
+@media screen and (max-width: 375px){
+    .propertyLeftSideHead{
+        font-size : 15px;
+    }
+    .propertyLeftSide{
+        padding-left: 10px;
+    }
+    .propertyLeftSideSubHead{
+        font-size : 15px
+    }
+}
+
+@media screen and (max-width: 320px){
+    .propertyLeftSideHead{
+        font-size : 13px;
+    }
+    .propertyLeftSide{
+        padding-left: 10px;
+    }
+    .propAddre{
+        font-size : 13px;
+    }
+}

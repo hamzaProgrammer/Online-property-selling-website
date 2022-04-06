@@ -1,0 +1,27 @@
+.descDiv{
+    display : flex;
+    align-items : center;
+    justify-content : flex-start;
+    flex-direction : column;
+}
+
+/* Desc */
+.DescHead{
+    font-size : 22px;
+    font-weight : 700;
+    width : 100%;
+}
+
+/* Paragraph */
+.descText{
+    margin-top : 10px;
+    color : #636e72;
+    font-weight : 500
+}
+
+@media screen and (max-width : 992px){
+    .descText{
+        margin-top : 8px;
+        font-weight : 400
+    }
+}

@@ -1,0 +1,266 @@
+.main_navbar{
+    display : flex;
+    justify-content : space-between;
+    align-items : center;
+    background-color : #FFFFFF;
+    margin-left : -50px;
+    margin-right : -50px;
+}
+
+/* Logo Div */
+.logo{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+/* Logo Class */
+.myLogo{
+    font-size : 25px;
+    font-weight : 700;
+    color : black;
+    padding-left : 15px;
+    text-align : center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* All Btns class */
+.all_btns{
+    margin-left : 20px;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    margin-top : 0px;
+}
+
+.btn{
+    background : transparent;
+    color : #2d3436;
+    font-size : 16px;
+    box-shadow : none;
+    border : none;
+    font-weight : 600;
+    width : 70px;
+    height : 40px;
+    text-align : center;
+    justify-content : center;
+}
+.btn:hover{
+    background : #079992;
+    color : #FFFFFF;
+    border-radius : 10px;
+}
+/* Mortage btn only */
+.btnMortage{
+    width : 100px;
+}
+
+/* Rent Drop Down */
+.rentDropDown{
+    height : 50px;
+    font-size : 17px;
+    font-weight : 400;
+}
+.rentDropDown:hover{
+    text-decoration : underline;
+    background-color : #ecf0f1
+}
+
+/* rightside btns */
+.newBtns{
+    flex : 1;
+    display : flex;
+    justify-content : right;
+    padding-right : 30px;
+    align-items : center;
+}
+
+/*  right side btn */
+.rightBtn{
+    width : 160px;
+}
+
+/* sign in/ sign up btn */
+.loginBtn{
+    width : 170px;
+    border : 1px solid #ecf0f1;
+    border-radius : 10px;
+    font-size : 16px;
+    word-spacing : 1.5px;
+}
+.loginBtn:hover{
+    background-color : #f5f6fa;
+    color : #2d3436;
+    border : none;
+}
+
+/* Menu icon */
+.menuIcon{
+    margin-left : 20px;
+    font-size : 20px;
+    color : #079992
+}
+
+/* Drawer  */
+.drawer{
+    padding-top : 50px;
+    padding-left : 30px;
+    margin-top : -10px;
+    color : #FFFFFF;
+    min-width : 100%;
+}
+
+/* collapse */
+.collapse{
+    padding-left : 15px;
+    padding-right : 15px;
+    margin-left : -30px;
+    background-color: #3B4144;
+    color : #FFFFFF;
+}
+.ant-collapse-content {
+    background-color: palegreen;
+    color : #FFFFFF
+}
+
+.ant-collapse-header{
+    font-size : 18px;
+    color: #FFFFFF !important;
+    font-weight : 600
+}
+/* drawer dropdown */
+.accord{
+    min-width : 100%;
+    background-color : #3B4144;
+    border : none;
+    text-align : start;
+    box-shadow : none;
+    color : #FFFFFF !important;
+    margin-left : -15px;
+    margin-top : -15px;
+}
+.accord:hover{
+    background-color : #3B4144;
+    color : #FFFFFF;
+    text-decoration: underline;
+}
+
+
+/* modal */
+.modal{
+    max-width : 380px;
+    border-radius : 50px;
+    max-height : 200px;
+}
+.ant-modal-content {
+  border-radius: 10px;
+  background-color : #FFFFFF;
+  border : 1px solid #7f8fa6;
+}
+
+/* submit button */
+.subtBtn{
+    background-color : #079992;
+    color : #FFFFFF;
+    border-radius : 10px;
+    max-height : 40px;
+}
+.subtBtn:hover{
+    color : #079992;
+    background-color : #FFFFFF;
+    border : 1px solid #079992;
+}
+
+/* Input field */
+.inputField{
+    border-radius : 10px;
+}
+.inputField:active{
+    border : 1px solid #079992;
+}
+
+/* Divider of modal  */
+.ant-divider-horizontal.ant-divider-with-text-center::before,
+.ant-divider-horizontal.ant-divider-with-text-center::after
+{
+   border-top: 1px solid #dcdde1;
+}
+
+/* facebok button */
+.fbBtn{
+    color : #FFFFFF;
+    background-color : #4267B2;
+    height : 40px;
+    border-radius : 10px;
+}
+.fbBtn:hover{
+    color : #FFFFFF;
+    background-color : #4267D2;
+    border-radius : 10px;
+}
+
+/* google btn */
+.googleBtn{
+    background-color : #FFFFFF;
+    color : #3d3d3d;
+    margin-top : 10px;
+    height : 40px;
+    border : 1px solid #3d3d3d;
+    border-radius : 10px;
+}
+.googleBtn:hover{
+    border : 1px solid transparent;
+    background-color : #FFFFFF;
+    color : #3d3d3d;
+}
+
+.hide{
+    display : block;
+}
+.show{
+    display : none;
+    min-width : 100%;
+    text-align: left;
+    padding-left : 20px;
+    font-size : 18px;
+    background-color : transparent;
+    border : none;
+    color : #FFFFFF;
+    height : 50px;
+    font-weight : 600
+}
+.show:hover{
+    background-color : transparent;
+    text-decoration : underline;
+    color : #FFFFFF;
+}
+
+
+@media screen and (max-width : 768px){
+    .hide{
+        display : none;
+    }
+    .show{
+        display : block;
+    }
+}
+
+@media screen and (max-width : 576px){
+    .hide{
+        display : none;
+    }
+}
+
+@media screen and (max-width : 375px){
+    .loginBtn{
+        width : 130px;
+        font-size : 12px;
+    }
+}
+
+@media screen and (max-width : 320px){
+    .collapse{
+        max-width : 300px;
+        margin-left : 20px;
+    }
+}

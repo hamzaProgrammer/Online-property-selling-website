@@ -1,0 +1,156 @@
+/* first div */
+.signupmaindiv{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #FFFFFF;
+    padding : 20px;
+}
+
+/* main div */
+.signUpCompDiv{
+    display : flex;
+    flex-direction: column;
+    justify-content : flex-start;
+    align-items : center;
+    background-color: transparent;
+}
+
+/* logo */
+.signUpLogo{
+    font-size : 35px;
+    font-weight: 700;
+    color : #00b894;
+    font-family: 'Pacifico', cursive;
+}
+
+/* form label */
+.formItemHead{
+    font-size: 18px;
+    margin-bottom: 10px;
+    color : #636e72;
+
+}
+
+/* form item  */
+.formItemSignUp{
+    width : 300px;
+    border-radius : 10px;
+    color : #00b894;
+    background-color : transparent;
+    border: 1px solid #b2bec3;
+}
+
+/* sign up bt */
+.signupBtn{
+    background-color : #2d3436;
+    color : #FFFFFF;
+    font-weight : 600;
+    font-size : 16px;
+    height : 35px;
+    border: 1px solid transparent;
+    max-width : 150px;
+    margin-left : -20px;
+}
+
+.signupBtn:hover{
+    background-color : #FFFFFF;
+    border : 1px solid #00b894;
+    border-radius : 10px;
+    color : #2d3436;
+}
+
+/* form heading */
+.formHead{
+    font-size : 24px;
+    font-weight : 700;
+    color : #636e72;
+    padding-top : 30px;
+    text-align: center;
+}
+
+/* already account */
+.altText{
+    font-size : 14px;
+    text-decoration: underline;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 25px;
+    color : #636e72;
+    cursor : pointer;
+}
+
+/* sign up carousel */
+.signUpcarousel{
+    width : 100%;
+    max-height : 600px;
+}
+
+/* slide image*/
+.slImage{
+    width : 100%;
+    max-height: 600px;
+    min-height: 600px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 1024px){
+    .signupmaindiv{
+        height : 500px
+    }
+    .signUpLogo{
+        font-size: 30px;
+    }
+    .formHead{
+        padding-top: 10px;
+    }
+    .signUpcarousel{
+        max-height : 500px;
+    }
+
+    /* slide image*/
+    .slImage{
+        max-height: 500px;
+        min-height: 500px;
+    }
+}
+
+@media screen and (max-width:768px){
+    .formItemSignUp{
+        max-width : 270px
+    }
+    .signupBtn{
+        margin-left: -30px;
+        font-size : 15px;
+        height : 35px;
+        max-width : 120px
+    }
+}
+
+@media screen and (max-width: 576px){
+    .signupmaindiv{
+        border-radius : 10px;
+    }
+    .signupBtn{
+        margin-left: -15px;
+        font-size : 15px;
+        height : 35px;
+        max-width : 120px
+    }
+}
+
+@media screen and (max-width: 425px){
+    .formItemSignUp{
+        max-width : 270px
+    }
+}
+
+@media screen and (max-width: 320px){
+    .formItemSignUp{
+        max-width : 220px
+    }
+    .altText{
+        font-size : 12px;
+    }
+}

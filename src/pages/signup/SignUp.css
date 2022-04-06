@@ -1,0 +1,9 @@
+@import 'antd/dist/antd.css';
+
+.error_class{
+    border : '1xp solid red'
+}
+
+.notification{
+    color : red
+}

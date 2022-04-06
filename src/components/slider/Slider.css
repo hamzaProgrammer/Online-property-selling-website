@@ -1,0 +1,92 @@
+.divStyling{
+    display : flex;
+    flex-direction : column;
+    background: url('https://images.unsplash.com/photo-1548099485-c71d720a31f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Z3JleSUyMGJ1aWxkaW5nfGVufDB8fDB8fA%3D%3D&w=1000&q=80') no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 450px;
+    padding-top : 50px;
+    padding-left: 30px;
+}
+
+.title{
+    font-size: 28px;
+    font-weight: 600;
+}
+
+
+.desc{
+    font-size: 15px;
+    max-width : 550px;
+    padding-top: 20px;
+    word-wrap: break;
+}
+
+.btns{
+    margin-top: 40px;
+}
+
+.firstBtn{
+    background-color: #e67e22;
+    color : #FFFFFF;
+    font-weight: 600;
+    font-size : 17px;
+    width : 120px;
+    height : 40px;
+}
+
+.firstBtn:hover{
+    color : #e67e22;
+    background-color: #FFFFFF;
+    border : 1px solid #FFFFFF
+}
+
+.secBtn{
+    background-color: #686de0;
+    color : #FFFFFF;
+    font-weight: 600;
+    font-size : 17px;
+    width : 120px;
+    height : 40px;
+}
+
+.secBtn:hover{
+    color : #686de0;
+    background-color: #FFFFFF;
+    border : 1px solid #FFFFFF
+}
+
+@media only screen and (max-width: 480px){
+    .firstBtn{
+        font-size : 15px;
+    }
+    .secBtn{
+        font-size : 15px;
+    }
+}
+
+@media only screen and (max-width:375px){
+    .divStyling{
+        padding-left: 10px;
+    }
+    .title{
+        font-size: 22px;
+    }
+    .desc{
+        font-size: 15px;
+        padding-right: 10px;
+    }
+}
+
+@media only screen and (max-width:375px){
+    .firstBtn{
+        padding-bottom : 5px
+    }
+    .title{
+        font-size: 19.5px;
+    }
+    .desc{
+        font-size: 13px;
+        padding-right: 10px;
+    }
+}

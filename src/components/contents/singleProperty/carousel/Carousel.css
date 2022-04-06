@@ -1,0 +1,198 @@
+/* carousel item */
+.CarItem{
+    width : 50%;
+    height : 300px;
+    cursor : pointer
+}
+
+.CarItem:hover .carImage{
+    opacity : 0.7
+}
+
+/* carousel image */
+.carImage{
+    width : 95%;
+    padding-left : 10px;
+    padding-right : 10px;
+    height : 50%;
+}
+
+.carImage:hover{
+    transition : 0.5 ease;
+    opacity : 0.7
+}
+
+/* carousel div */
+.carouselDiv{
+    display : flex;
+    align-items : center;
+    justify-content : flex-start;
+    flex-direction : column;
+}
+
+.onceOnly .carousel-item-padding-40-px{
+    display : flex
+}
+
+/* Price */
+.carouPrice{
+    font-size : 20px;
+    font-weight : 700;
+    text-align : center;
+    padding-bottom : 5px;
+    padding-top : 5px
+}
+
+/* Address */
+.carouAdd{
+    font-size : 15px;
+    color : #636e72;
+    font-weight : 500;
+    color : #1e272e;
+    word-wrap: break-word;
+    padding-top : 5px;
+}
+
+
+.CarmainDiv{
+    display : flex;
+    justify-content : space-between;
+    background-color : #f5f6fa;
+    padding-left : 30px;
+    padding-right : 30px;
+    padding-top : 20px;
+}
+
+
+.innerDiv{
+    display : flex;
+    width : 100%;
+    justify-content : space-between;
+    width : 200px;
+}
+
+.innerDivText{
+    font-size : 12px;
+    font-weight : 600;
+    color :#636e72
+}
+
+.ant-carousel .slick-dots li button {
+    background: #c23616;
+    opacity: 0.4;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    opacity: 1;
+    background: #c23616;
+}
+
+.myCarDivv{
+    display : flex;
+    background-color : #f5f6fa;
+    padding-top : 10px
+}
+
+/* new item image */
+.carImageNew{
+    max-width : 90%;
+    max-height : 150px;
+    min-height : 150px;
+    margin-top : 10px
+}
+
+/* new item of carousel */
+.carouselDivNew{
+    width : 270px;
+}
+
+
+@media screen and (max-width: 992px){
+    .CarItem{
+        width : 50%
+    }
+    .innerDiv{
+        display : none;
+    }
+    .carouAdd{
+        font-size : 13px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .CarItem{
+        width : 50%
+    }
+    .innerDiv{
+        display : none;
+    }
+    .carouAdd{
+        font-size : 13px;
+        padding-left : 10px;
+        padding-right : 10px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .CarItem{
+        width : 50%
+    }
+    .innerDiv{
+        display : none;
+    }
+    .carouAdd{
+        font-size : 11px;
+    }
+    .carImageNew{
+        margin-left : 80px;
+        width : 300px;
+    }
+    .carouAdd{
+        text-align : center
+    }
+}
+
+@media screen and (max-width: 425px){
+    .carImageNew{
+        margin-left : 35px;
+        width : 270px;
+    }
+}
+
+@media screen and (max-width: 375px){
+    .carouPrice{
+        font-size : 12px
+    }
+    .carImage{
+        height : 50%;
+    }
+    .carouAdd{
+        font-size : 13px
+    }
+    .carImageNew{
+        margin-left : 25px;
+        width : 250px;
+    }
+    .carouPrice{
+        font-size : 18px;
+    }
+    .sliderText{
+        font-size : 15px !important;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .carouPrice{
+        font-size : 18px
+    }
+    .carImage{
+        height : 60%;
+    }
+    .carouAdd{
+        font-size : 12px
+    }
+    .carImageNew{
+        margin-left : 10px;
+        width : 230px;
+    }
+}

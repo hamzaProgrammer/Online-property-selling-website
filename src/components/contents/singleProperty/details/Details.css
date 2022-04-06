@@ -1,0 +1,293 @@
+/* Main datils */
+.mainDetails{
+    display : flex;
+    align-items : center;
+    flex-direction: column;
+}
+/* head */
+.Myhead{
+    font-size : 25px;
+    font-weight : 700;
+    width : 100%;
+    color : #2d3436;
+    margin-bottom : 15px
+}
+/* text one */
+.textOne{
+    font-size : 15px;
+    width : 100%;
+    margin-top : -10px;
+    color : #636e72
+}
+
+/* right section */
+.rightSec{
+    display : flex;
+    align-items : center;
+    flex-direction: column;
+}
+
+/* right head */
+.rightHead{
+    font-size : 23px;
+    font-weight : 700;
+    color : #2d3436;
+    width : 100%
+}
+
+/* right text */
+.textTwo{
+    font-size : 15px;
+    width : 100%;
+    margin-top : 0px;
+    color : #636e72
+}
+
+/* right section button */
+.rightBtnOne{
+    color : #FFFFFF;
+    background-color: #00b894;
+    border-radius : 10px;
+    border : none;
+    font-size : 16px;
+    font-weight : 600;
+    width : 180px;
+    height : 40px;
+    margin-top : 10px;
+    margin-left : -30px;
+}
+.rightBtnOne:hover{
+    color : #00b894;
+    background-color: #FFFFFF;
+    border : 1px solid #00b894
+}
+
+/* shedulw tab */
+.sheduleTab{
+    display : flex;
+    padding-left : 10px;
+    flex-direction : column;
+}
+
+/* contact form */
+.form{
+    padding-left : 15px;
+    width : 100%;
+    
+}
+
+.input{
+    width : 250px;
+    height : 40px;
+    border-radius : 10px
+}
+
+/* submit button  */
+.submitBtn{
+    background-color : #d63031;
+    color: #FFFFFF;
+    border : none;
+    border-radius : 10px;
+    font-weight : 600;
+    font-size : 16px;
+    width : 100%;
+    height : 40px;
+    margin-left : -50px;
+}
+
+.submitBtn:hover{
+     background-color : #FFFFFF;
+    color: #d63031;
+    border : 1px solid #d63031;
+}
+
+/* Form text */
+.myText{
+    font-size : 10px;
+    color : #636e72;
+    font-weight : 400;
+    padding: 5px;
+    padding-top : 0px;
+    padding-bottom : 10px
+}
+
+/* map */
+.map{
+    max-height: 100px;
+    padding-left : 10px;
+    padding-right : 10px;
+    border-radius : 10px;
+    padding-top : 10px;
+    min-width: 100%
+}
+
+
+
+.miniText{
+    font-size : 11px;
+    font-weight : 400;
+}
+
+.myClass{
+    display : flex;
+    justify-content : start;
+    padding-left : 10px
+}
+
+
+/* not logged in text */
+.notLoggedText{
+    font-size : 15px;
+    text-align: center;
+    color : #e74c3c;
+    margin-left : -100px;
+}
+
+@media screen and (max-width : 1200px){
+    .input{
+        width : 220px
+    }
+    .rightBtn{
+        width : 130px;
+        font-size : 13px;
+        margin-left : 0px
+    }
+}
+
+@media screen and (max-width : 992px){
+    .Myhead{
+        font-size : 18px;
+    }
+    .textOne{
+        font-size : 12px;
+    }
+    .rightHead{
+        font-size : 20px
+    }
+    .textTwo{
+        font-size : 12px;
+    }
+    .rightBtn{
+        width : 100px;
+        font-size : 12px;
+        padding-left : 2px;
+        height : 35px;
+        margin-left : 0px
+    }
+    .form{
+        max-width : 90%
+    }
+    .input{
+        width : 180px
+    }
+    .miniText{
+        font-size : 5px;
+        width : 210px
+    }
+    .submitBtn{
+        font-size : 12px;
+        width : 100%
+    }
+}
+
+@media screen and (max-width : 768px){
+    .rightBtn{
+        width : 120px;
+        font-size : 12px;
+        height : 35px;
+        margin-left : 0px
+    }
+    .input{
+        width : 500px
+    }
+    .miniText{
+        font-size : 5px;
+        width : 100%
+    }
+    .myTabs{
+        margin-top : 15px;
+        margin-left : 10px;
+        margin-right : 10px
+    }
+}
+
+@media screen and (max-width : 576px){
+    .mainSec{
+        margin-top : 40px;
+    }
+    .input{
+        width : 430px
+    }
+    .miniText{
+        font-size : 5px;
+        width : 100%
+    }
+    .myTabs{
+        margin-top : 15px;
+        margin-left : 10px;
+        margin-right : 10px
+    }
+}
+
+@media screen and (max-width : 480px){
+    .mainDetails{
+        justify-content : center;
+    }
+    .myClass{
+        justify-content : center;
+    }
+    .Myhead{
+        text-align : center;
+    }
+    .textOne{
+        text-align : center;
+    }
+    .mainSec{
+        margin-top : 40px;
+    }
+    .rightSec{
+        justify-content : center;
+        min-width : 100%;
+        margin-top : 20px;
+        margin-bottom : 10px;
+    }
+    .rightHead{
+        text-align : center
+    }
+    .textTwo{
+        text-align : center
+    }
+    .input{
+        width : 420px
+    }
+    .myTabs{
+        margin-top : 15px;
+        margin-left : 10px;
+        max-width : 460px
+    }
+}
+
+@media screen and (max-width : 375px){
+    .mainDetails{
+        margin-top : -50px;
+    }
+    .input{
+        width : 300px
+    }
+    .myTabs{
+        margin-top : 15px;
+        max-width : 350px;
+        margin-right: 30px
+    }
+}
+
+@media screen and (max-width : 320px){
+    .input{
+        width : 250px
+    }
+    .myTabs{
+        margin-top : 15px;
+        max-width : 300px;
+        margin-right: 30px
+    }
+}

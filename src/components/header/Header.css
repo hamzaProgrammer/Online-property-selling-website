@@ -1,0 +1,22 @@
+.header{
+  background-color: red;
+}
+
+.mainHeader{
+  margin-left: -50px;
+  margin-right : -50px;
+  min-height: 80px;
+}
+
+.searchBar{
+  /* max-width: 450px; */
+  background-color: grey;
+    width: 450px;
+    border : 1px solid white;
+}
+
+.typo{
+  color :#e67e22;
+  margin-top: 15px;
+  margin-left: 10px;
+}
