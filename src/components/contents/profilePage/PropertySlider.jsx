@@ -2,53 +2,10 @@ import React  from 'react'
 import { Typography ,Button} from 'antd';
 import {Link } from 'react-router-dom'
 import Carousel from 'react-multi-carousel';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBed , faBath  , faRestroom } from '@fortawesome/free-solid-svg-icons'
-
+import 'react-multi-carousel/lib/styles.css';
+import {HomeOutlined} from '@ant-design/icons'
 
 const propertySlider = ({selling , sold}) => {
-    // function onChange(a, b, c) {
-    //     console.log(a, b, c);
-    // }
-    // const SampleNextArrow = props => {
-    //   const { className, style, onClick } = props
-    //   return (
-    //     <div
-    //       className={className}
-    //       style={{
-    //         ...style,
-    //         color: 'black',
-    //         fontSize: '35px',
-    //         lineHeight: '1.5715'
-    //       }}
-    //       onClick={onClick}
-    //     >
-          
-    //     </div>
-    //   )
-    // }
-    // const SamplePrevArrow = props => {
-    //   const { className, style, onClick } = props
-    //   return (
-    //     <div
-    //       className={className}
-    //       style={{
-    //         ...style,
-    //         color: 'black',
-    //         fontSize: '35px',
-    //         lineHeight: '1.5715',
-    //       }}
-    //       onClick={onClick}
-    //     >
-          
-    //     </div>
-    //   )
-    // }
-    // const settings = {
-    //   nextArrow: <SampleNextArrow />,
-    //   prevArrow: <SamplePrevArrow />
-    // }
-    
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
@@ -78,7 +35,6 @@ const propertySlider = ({selling , sold}) => {
                     <Typography className="sliderText" style={{backgroundColor : 'transparent'}} >My Listed Properties</Typography>
                     <Button style={{backgroundColor : '#2d3436' , color : '#FFFFFF' , fontWeight : 600 , marginRight : '10px' , borderRadius : '5px' }} size="small" href="/addNewProperty" >Add New</Button>
                 </div>
-
                 <Carousel
                     swipeable={true}
                     draggable={true}
@@ -91,36 +47,38 @@ const propertySlider = ({selling , sold}) => {
                     containerClass="carousel-container"
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
-                    autoPlay={true}
                     arrows
                 >
                 {
-                    selling?.map((item) => {
-                        return (
-                            <div style={{backgroundColor : '#FFFFFF' , minWidth : '100%' , paddingLeft : '5px' , marginTop : '5px'}} >
-                                <Link to={`/viewUserProperty/${item?._id}`}>
-                                    <img alt="cover" style={{borderRadius : '20px'}} className="carImageNew" src={item?.images[0]} key={item?.bedrooms} />
-                                </Link>
-                                    <Typography className="carouPrice"  >${item?.price}</Typography>
-                                <div className="carouselDivNew">
-                                    <div className="innerDiv" key={item?.price} >   
-                                        <Typography className="innerDivText" >{item?.baths} Baths</Typography>
-                                        <FontAwesomeIcon icon={faBath} color="#e17055" size="lg" />
-                                        <Typography className="innerDivText" >{item?.bedrooms} beds</Typography>
-                                        <FontAwesomeIcon icon={faBed} color="#6c5ce7" size="lg" />
-                                        <Typography className="innerDivText" >{item?.rooms} rooms</Typography>
-                                        <FontAwesomeIcon icon={faRestroom} color="#ff7675" size="lg" />
+                    selling?.length > 0 ? (
+                        selling?.map((item) => (
+                            <>
+                                <div style={{backgroundColor : '#FFFFFF' , height : '280px' , marginTop : '5px'}} >
+                                    <Link to={`/viewUserProperty/${item?._id}`}>
+                                        <img alt="cover" style={{borderRadius : '20px' , paddingTop : '10px' , minHeight : '150px',  objectFit : 'cover'}} className="carImage carImageNew" src={item?.images[0]} />
+                                    </Link>
+                                    <div className="carouselDiv" >
+                                        <Typography className="carouPrice" >${item?.price}</Typography>
+                                        <div className="innerDiv newInnerDiv"  >
+                                            <Typography className="innerDivText innerDivTextNew " >{item?.baths} Baths</Typography>
+                                            <HomeOutlined  style={{color : '#d63031' , marginTop : '2px'}} />
+                                            <Typography className="innerDivText innerDivTextNew " >{item?.beds} Beds</Typography>
+                                            <HomeOutlined style={{color : '#d63031' , marginTop : '2px'}} />
+                                            <Typography className="innerDivText innerDivTextNew " >{item?.bedrooms} Bedrooms</Typography>
+                                        </div>
+                                        <Typography className="carouAdd carouAddNew" style={{paddingLeft: '5px' , paddingRight : '5px'}} >{item?.address}</Typography>
                                     </div>
-                                    <Typography className="carouAdd" >{item?.address}</Typography>
                                 </div>
-                            </div>
-                        )
-                    })
+                            </>
+                        ))
+                    ) : (
+                        <Typography className="NoRelatedFound" >No Related Properties Found</Typography>
+                    )
                 }
                 </Carousel>
             </div>
 
-            <div  >
+            <div>
                 <Typography className="sliderText" >My Recently Sold Properties</Typography>
                 <Carousel
                     swipeable={true}
@@ -134,31 +92,33 @@ const propertySlider = ({selling , sold}) => {
                     containerClass="carousel-container"
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
-                    autoPlay={true}
                     arrows
                 >
                 {
-                    sold?.map((item) => {
-                        return (
-                            <div style={{backgroundColor : '#FFFFFF' , minWidth : '100%' , paddingLeft : '5px' , marginTop : '5px'}} >
-                                <Link to={`/viewUserProperty/${item?._id}`}>
-                                    <img alt="cover" style={{borderRadius : '20px'}} className="carImageNew" src={item?.images[0]} key={item?.bedrooms} />
-                                </Link>
-                                    <Typography className="carouPrice"  >${item?.price}</Typography>
-                                <div className="carouselDivNew">
-                                    <div className="innerDiv" key={item?.price} >   
-                                        <Typography className="innerDivText" >{item?.baths} Baths</Typography>
-                                        <FontAwesomeIcon icon={faBath} color="#e17055" size="lg" />
-                                        <Typography className="innerDivText" >{item?.bedrooms} beds</Typography>
-                                        <FontAwesomeIcon icon={faBed} color="#6c5ce7" size="lg" />
-                                        <Typography className="innerDivText" >{item?.rooms} rooms</Typography>
-                                        <FontAwesomeIcon icon={faRestroom} color="#ff7675" size="lg" />
+                    sold?.length > 0 ? (
+                        sold?.map((item) => (
+                            <>
+                                <div style={{backgroundColor : '#FFFFFF' , height : '280px' , marginTop : '5px'}} >
+                                    <Link to={`/viewUserProperty/${item?._id}`}>
+                                        <img alt="cover" style={{borderRadius : '20px' , paddingTop : '10px' , minHeight : '150px',  objectFit : 'cover'}} className="carImage carImageNew" src={item?.images[0]} />
+                                    </Link>
+                                    <div className="carouselDiv" >
+                                        <Typography className="carouPrice" >${item?.price}</Typography>
+                                        <div className="innerDiv newInnerDiv"  >
+                                            <Typography className="innerDivText innerDivTextNew " >{item?.baths} Baths</Typography>
+                                            <HomeOutlined  style={{color : '#d63031' , marginTop : '2px'}} />
+                                            <Typography className="innerDivText innerDivTextNew " >{item?.beds} Beds</Typography>
+                                            <HomeOutlined style={{color : '#d63031' , marginTop : '2px'}} />
+                                            <Typography className="innerDivText innerDivTextNew " >{item?.bedrooms} Bedrooms</Typography>
+                                        </div>
+                                        <Typography className="carouAdd carouAddNew" style={{paddingLeft: '5px' , paddingRight : '5px'}} >{item?.address}</Typography>
                                     </div>
-                                    <Typography className="carouAdd" >{item?.address}</Typography>
                                 </div>
-                            </div>
-                        )
-                    })
+                            </>
+                        ))
+                    ) : (
+                        <Typography className="NoRelatedFound" >No Related Properties Found</Typography>
+                    )
                 }
                 </Carousel>
             </div>

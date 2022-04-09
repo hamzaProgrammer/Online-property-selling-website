@@ -16,7 +16,7 @@ const EditProfile = () => {
                 <Header>
                     <Navbar />
                 </Header>
-                <Content style={{background : '#FFFFFF'}} >
+                <Content style={{background : '#FFFFFF' , paddingTop : '20px' , paddingBottom: '40px' }} >
                     <Row>
                         <Col xs={24} sm={8} md={6} lg={5} xl={5} style={{borderRight : '1px solid #636e72'}} >
                             <SideBar />

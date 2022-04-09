@@ -26,9 +26,17 @@ const PropertyDesc = () => {
                 <Col sm={{span : 21 , offset : 2}} md={{span : 18 , offset: 3 }} lg={{span : 13 , offset : 3}} style={{ padding: '10px'}} >
                     <div className="descDiv" >
                         <Typography className="DescHead" >Description</Typography>
-                        <Paragraph className="descText" >
-                            {propertyData?.desc}
-                        </Paragraph>
+                        {
+                            propertyData ? (
+                                <Paragraph className="descText" >
+                                    {propertyData?.desc}
+                                </Paragraph>
+                            ) : (
+                                <Paragraph className="descText" >
+                                    Could not Found Description of Property
+                                </Paragraph>
+                            )
+                        }
                     </div>
                 </Col>
                 <Col md={0} lg={4}></Col>

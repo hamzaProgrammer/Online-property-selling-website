@@ -14,9 +14,10 @@
 }
 /* text one */
 .textOne{
-    font-size : 15px;
+    font-size : 17px;
     width : 100%;
-    margin-top : -10px;
+    margin-bottom : 15px;
+    margin-top : 0px;
     color : #636e72
 }
 
@@ -66,18 +67,20 @@
 .sheduleTab{
     display : flex;
     padding-left : 10px;
+    justify-content :center;
+    align-items : center;
     flex-direction : column;
 }
 
 /* contact form */
 .form{
-    padding-left : 15px;
+    padding-left : 10px;
+    padding-right : 15px;
     width : 100%;
-    
 }
 
 .input{
-    width : 250px;
+    width : 260px;
     height : 40px;
     border-radius : 10px
 }
@@ -96,7 +99,7 @@
 }
 
 .submitBtn:hover{
-     background-color : #FFFFFF;
+    background-color : #FFFFFF;
     color: #d63031;
     border : 1px solid #d63031;
 }
@@ -143,6 +146,19 @@
     margin-left : -100px;
 }
 
+.myTabs{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+/*  no data found */
+.NoContentText{
+    font-size : 25px;
+    font-weight : 700;
+    text-align: center
+}
+
 @media screen and (max-width : 1200px){
     .input{
         width : 220px
@@ -178,7 +194,7 @@
         max-width : 90%
     }
     .input{
-        width : 180px
+        width : 220px
     }
     .miniText{
         font-size : 5px;
@@ -186,7 +202,12 @@
     }
     .submitBtn{
         font-size : 12px;
-        width : 100%
+        width : 100%;
+        margin-left : -35px
+    }
+    .sheduleTab{
+        padding : 0px;
+        min-width : 270px;
     }
 }
 
@@ -198,14 +219,15 @@
         margin-left : 0px
     }
     .input{
-        width : 500px
+        width : 280px;
+        margin-right : 20px
     }
     .miniText{
         font-size : 5px;
         width : 100%
     }
     .myTabs{
-        margin-top : 15px;
+        margin-top : 230px;
         margin-left : 10px;
         margin-right : 10px
     }
@@ -216,20 +238,25 @@
         margin-top : 40px;
     }
     .input{
-        width : 430px
+        width : 400px;
     }
     .miniText{
         font-size : 5px;
         width : 100%
     }
+    .submitBtn{
+        font-size : 15px;
+        max-width : 150px;
+        margin-left : -15px
+    }
     .myTabs{
-        margin-top : 15px;
-        margin-left : 10px;
+        margin-top : 230px;
+        margin-left : 0px;
         margin-right : 10px
     }
 }
 
-@media screen and (max-width : 480px){
+@media screen and (max-width : 425px){
     .mainDetails{
         justify-content : center;
     }
@@ -258,12 +285,12 @@
         text-align : center
     }
     .input{
-        width : 420px
+        width : 340px
     }
     .myTabs{
-        margin-top : 15px;
-        margin-left : 10px;
-        max-width : 460px
+        margin-top : 230px;
+        margin-left : 20px;
+        max-width : 390px
     }
 }
 
@@ -275,9 +302,9 @@
         width : 300px
     }
     .myTabs{
-        margin-top : 15px;
+        margin-top : 230px;
         max-width : 350px;
-        margin-right: 30px
+        margin-left: 20px
     }
 }
 
@@ -286,8 +313,14 @@
         width : 250px
     }
     .myTabs{
-        margin-top : 15px;
-        max-width : 300px;
-        margin-right: 30px
+        margin-top : 230px;
+        max-width : 290px;
+        margin-right: 0px;
+        margin-left : 0px
+    }
+    .submitBtn{
+        font-size : 15px;
+        max-width : 150px;
+        margin-left : -30px
     }
 }

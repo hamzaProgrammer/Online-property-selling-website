@@ -153,6 +153,48 @@
     }
 }
 
+@media only screen and (width: 912px){
+    .textDiv{
+        padding-left : 10px;
+    }
+    .mainDiv{
+        padding-left : 230px
+    }
+    .MainHead{
+        font-size : 32px;
+        width : 320px;
+        padding-left : 60px
+    }
+    .radioBtn{
+        height : 35px
+    }
+    .searchField{
+        width : 340px
+    }
+
+}
+
+@media only screen and (width: 820px){
+    .textDiv{
+        padding-left : 10px;
+    }
+    .mainDiv{
+        padding-left : 200px
+    }
+    .MainHead{
+        font-size : 32px;
+        width : 320px;
+        padding-left : 60px
+    }
+    .radioBtn{
+        height : 35px
+    }
+    .searchField{
+        width : 340px
+    }
+
+}
+
 @media only screen and (max-width: 768px){
     .textDiv{
         padding-left : 180px;
@@ -189,6 +231,13 @@
     }
 }
 
+@media only screen and (width: 540px){
+    .mainDiv{
+        margin-left : -20px
+    }
+
+}
+
 @media only screen and (max-width: 425px){
     .textDiv{
         padding-left : 10px;
@@ -204,7 +253,34 @@
     .searchField{
         width : 340px
     }
+
 }
+
+@media only screen and (width: 412px){
+    .mySearchCity{
+        width : 360px
+    }
+
+}
+
+@media only screen and (width: 393px){
+    .mySearchCity{
+        width : 330px
+    }
+    .btnGroup{
+        margin-left : 30px
+    }
+}
+
+@media only screen and (width: 390px){
+    .mySearchCity{
+        width : 340px
+    }
+    .btnGroup{
+        margin-left : 30px
+    }
+}
+
 
 @media only screen and (max-width: 375px){
     .textDiv{

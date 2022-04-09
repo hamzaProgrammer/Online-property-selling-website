@@ -184,6 +184,11 @@
     padding-top : 10px;
 }
 
+/* inner div new */
+.newInnerDiv{
+    width : 90%
+}
+
 
 @media screen and (max-width:1200px){
     .userFormItem{
@@ -195,6 +200,15 @@
     }
     .userFormBtn{
         margin-left : -50px;
+    }
+    .newInnerDiv{
+        width : 95%
+    }
+    .innerDivTextNew{
+        font-size : 13px
+    }
+    .carouAddNew{
+        font-size : 13px
     }
 }
 
@@ -210,6 +224,15 @@
         margin-left : -55px;
         min-width : 150px;
         font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 992x){
+    .newInnerDiv{
+        display : block
+    }
+    .innerDivTextNew{
+        display : block
     }
 }
 

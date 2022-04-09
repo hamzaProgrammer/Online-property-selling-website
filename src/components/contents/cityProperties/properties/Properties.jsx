@@ -1,9 +1,9 @@
 import React , {useState , useEffect , useRef } from 'react'
-import { Row, Col ,Typography  , Pagination , Menu , Dropdown , Checkbox, Drawer , Input  ,  Spin ,  Button  , Tooltip , notification , message  } from 'antd';
+import { Row, Col ,Typography, Carousel , Pagination , Menu , Dropdown , Checkbox, Drawer , AutoComplete , Input ,  Spin ,  Button  , Tooltip , notification , message  } from 'antd';
 import './Properties.css'
 import { DownOutlined ,MenuOutlined ,HeartOutlined} from '@ant-design/icons'
 import {Link , useParams , useNavigate} from 'react-router-dom'
-import {getPropertiesByCity , getUsersPropertiesOnly , getAdminsPropertiesOnly , addNewSavedLater} from '../../../../server_api/Api'
+import {getPropertiesByCity , getUsersPropertiesOnly , getAdminsPropertiesOnly ,  addNewSavedSearch ,  addNewSavedLater} from '../../../../server_api/Api'
 import '../filterBtns/FilterBtns.css'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -136,6 +136,7 @@ const Properties = () => {
 
     const [allProperties , setProperties] = useState([])
     const {city} = useParams();
+    const [ myCity , setmyCity ] = useState(city)
     const [ newUrl , setNewUrl ] = useState("");
     const [ beds , setBeds ] = useState(0);
     const [ minMyPrice , setMinPrice ] = useState(0);
@@ -192,17 +193,19 @@ const Properties = () => {
     // gettng data for first time
     useEffect(() => {
         setIsSpinning(true);
+        setIsSaved(false)
         const getCityData = async () => {
-            const {data} = await getPropertiesByCity(city);
+            const {data} = await getPropertiesByCity(myCity);
             setProperties(data?.AllProperties)
             setIsSpinning(false);
         }
         getCityData();
-    },[city])
+    },[myCity])
 
     // getting coordinates of current cities
     useEffect(() => {
         if(allProperties){
+            setIsSaved(false)
             setIsSpinning(true);
             if(allProperties.length > 0){
                 let newArray = [];
@@ -221,33 +224,10 @@ const Properties = () => {
         }
     },[allProperties])
 
-    // getting coordinates of current city
-    useEffect(() => {
-        if(allProperties){
-            if(city === "izmir"){
-                console.log("city matched")
-                setDefaultCenter({
-                    lat: 38.423733, lng: 27.142826
-                })
-            }
-            if(city === "istanbul"){
-                console.log("city matched")
-                setDefaultCenter({
-                    lat: 41.008240, lng: 28.978359
-                })
-            }
-            if(city === "ankara"){
-                console.log("city matched")
-                setDefaultCenter({
-                    lat: 39.933365, lng: 32.859741
-                })
-            }
-        }
-    },[city ,allProperties])
-
     // filtering products
     useEffect(() => {
         setIsSpinning(true);
+        setIsSaved(false)
         axios.get("http://localhost:8080/api/properties/getPropertiesWithFilter?" + `city=${city}` + "&" + `${newUrl}`)
         .then(function (response) {
             setProperties(response?.data?.AllProperties)
@@ -276,19 +256,6 @@ const Properties = () => {
 
     const [user, setUser ] = useState("")
     const location = useNavigate();
-
-    //checking if admin logged in or not
-    useEffect(() => {
-        const checkAdmin = () => {
-            const user = JSON.parse(localStorage.getItem('profile'))
-            if (user) {
-                setUser(user?.Admin?.Id)
-            } else {
-                setUser("")
-            }
-        }
-        checkAdmin();
-    }, [location])
 
     const success = () => {
         message.success('Property Add Saved for Later SuccessFully');
@@ -320,8 +287,302 @@ const Properties = () => {
         });
     };
 
+    const [userId , setUserId ] = useState("")
+
+   //checking if admin logged in or not
+    useEffect(() => {
+        const checkAdmin = () => {
+            setIsSaved(false)
+            const user = JSON.parse(localStorage.getItem('profile'))
+            if (user) {
+                setUserId(user?.Admin?.Id)
+            } else {
+                setUserId("")
+            }
+        }
+        checkAdmin();
+    }, [location])
+
+    // messages
+    const mySuccess = () => {
+        message.success('Search Saved SuccessFully');
+    };
+    const myError = () => {
+        message.error('Saved Search Already Exists');
+    };
+    const LoginError = () => {
+        message.error('Please Sign In First to Save Search');
+    };
+
+    // saving search
+    const saveSearch = async () => {
+        if(userId === ""){
+            LoginError();
+        }else{
+            let sendUrl = "";
+            if(newUrl === ""){
+                sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `city=${myCity}`;
+            }else{
+                sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `city=${myCity}` + "&" + `${newUrl}`;
+            }
+            const {data} = await addNewSavedSearch({ user : userId  , savedSearch : sendUrl});
+
+            if(data?.success === true){
+                mySuccess();
+                setIsSaved(true)
+            }else{
+                myError();
+            }
+        }
+    }
+    const { Search } = Input;
+    const [ isSaved , setIsSaved ] = useState(false)
+    // searching Cities
+    const onSearch = (value) => {
+        setIsSpinning(true);
+        setIsSaved(false)
+        const getData = async () => {
+            let newValue = value.toLowerCase();
+            setmyCity(newValue)
+            const {data} = await getPropertiesByCity(newValue);
+            setProperties(data?.AllProperties)
+            setIsSpinning(false);
+
+            if(newValue === "izmir"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.423733, lng: 27.142826
+                })
+            }
+            if(newValue === "istanbul"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.008240, lng: 28.978359
+                })
+            }
+            if(newValue === "ankara"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.933365, lng: 32.859741
+                })
+            }
+            if(newValue === "roka"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 44.5468, lng: -99.004965
+                })
+            }
+            if(newValue === "anarkali"){
+                console.log("city matched called also")
+                setDefaultCenter({
+                    lat: 31.562489, lng:  74.30936
+                })
+            }
+            if(newValue === "konya"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.87135, lng:  32.48464
+                })
+            }
+            if(newValue === "trabzon"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 40.997092, lng:  39.699957
+                })
+            }
+            if(newValue === "cesme"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.32278, lng: 26.30639
+                })
+            }
+            if(newValue === "mardin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.31309, lng: 40.74357
+                })
+            }
+            if(newValue === "edrin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 52.92571, lng: -4.129119
+                })
+            }
+            if(newValue === "marmaris"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 36.855, lng: 28.27417
+                })
+            }
+            if(newValue === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(newValue === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(newValue === "kas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 12.560737, lng: 24.170881
+                })
+            }
+            if(newValue === "bartin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.632258, lng: 32.327378
+                })
+            }
+        }
+        getData();
+    }
+
+    // getting coordinates of current city
+    useEffect(() => {
+        setIsSaved(false)
+        if(allProperties){
+            if(myCity === "izmir"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.423733, lng: 27.142826
+                })
+            }
+            if(myCity === "istanbul"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.008240, lng: 28.978359
+                })
+            }
+            if(myCity === "ankara"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.933365, lng: 32.859741
+                })
+            }
+            if(myCity === "roka"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 44.5468, lng: -99.004965
+                })
+            }
+            if(myCity === "anarkali"){
+                console.log("city matched called also")
+                setDefaultCenter({
+                    lat: 31.562489, lng:  74.30936
+                })
+            }
+            if(myCity === "konya"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.87135, lng:  32.48464
+                })
+            }
+            if(myCity === "trabzon"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 40.997092, lng:  39.699957
+                })
+            }
+            if(myCity === "cesme"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.32278, lng: 26.30639
+                })
+            }
+            if(myCity === "mardin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.31309, lng: 40.74357
+                })
+            }
+            if(myCity === "edrin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 52.92571, lng: -4.129119
+                })
+            }
+            if(myCity === "marmaris"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 36.855, lng: 28.27417
+                })
+            }
+            if(myCity === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(myCity === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(myCity === "kas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 12.560737, lng: 24.170881
+                })
+            }
+            if(myCity === "bartin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.632258, lng: 32.327378
+                })
+            }
+        }
+    },[onSearch])
+
+
+    // for search buttton
+    const options = [
+        {label: 'Izmir', value: 'Izmir'}, 
+        {label: 'Istanbul', value: 'Istanbul'},
+        {label: 'Ankara', value: 'Ankara'}, 
+        {label: 'Roka', value: 'Roka'},
+        {label: 'Anarkali', value: 'Anarkali'},
+        {label: 'Konya', value: 'Konya'},
+        {label: 'Trabzon', value: 'Trabzon'},
+        {label: 'Cesme', value: 'Cesme'},
+        {label: 'Mardin', value: 'Mardin'},
+        {label: 'Edrin', value: 'Edrin'},
+        {label: 'Marmaris', value: 'Marmaris'},
+        {label: 'Sivas', value: 'Sivas'},
+        {label: 'Kas', value: 'Kas'},
+        {label: 'Bartin', value: 'Bartin'},
+    ]
+
     return (
-        <>
+        <> 
+
+            <Row>
+                <Col xs={1} sm={1} md={4} lg={6} xl={6} ></Col>
+                <Col xs={22} sm={22} md={16} lg={12} xl={12} >
+                    <div className="sellSearchSection" >
+                        <Typography className="SearchText" >Change Location</Typography>
+                        <AutoComplete
+                            options={options}
+                            onSelect={(value)=> {
+                                onSearch(value)
+                            }}
+                            className="searchCity"
+                            filterOption={(inputValue, option) =>
+                                option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                            }
+                        >
+                            <Search placeholder="Search Any City" size="large"  onSearch={onSearch} enterButton />
+                        </AutoComplete>
+                    </div>
+                </Col>
+                <Col xs={1} sm={1} md={4} lg={6} xl={6} ></Col>
+            </Row>
+
             <Row style={{boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px' , height : '60px'}} >
                 <Spin spinning={isSpinning} >
                     <Col xs={24} sm={20} md={20} lg={15} >
@@ -337,7 +598,7 @@ const Properties = () => {
                             <Dropdown overlay={HomeTypesMenu} className="filterBtn filterHideFirst" placement="bottomLeft" arrow >
                                 <Button>Home Types <DownOutlined style={{fontSize : '15px' , fontWeight : 700}} /></Button>
                             </Dropdown>
-                            <Button className="filterBtn borderBtn filterHideFirst hideSearch">Save Search</Button>
+                             <Button className="filterBtn borderBtn filterHideFirst hideSearch" disabled={isSaved} onClick={saveSearch} >Save Search</Button>
                             <MenuOutlined className="filterMenu" onClick={openDrawer} />
                         </div>
                     </Col>
@@ -347,7 +608,7 @@ const Properties = () => {
             <Row style={{marginTop : '20px'}} >
                     <Col xs={24} sm={24} md={{span : 22 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span: 12, offset : 1}} style={{marginBottom : '15px'}} >
                         <Spin spinning={isSpinning} >
-                            <Typography className="propertyLeftSideHead" >All Homes Avaibalbe in {city} are Given below</Typography>
+                            <Typography className="propertyLeftSideHead" >All Homes Available in {myCity.charAt(0).toUpperCase() + myCity.slice(1)} are Given below</Typography>
                             {
                                 allProperties?.length > 1 && (
                                     <Typography className="propertyLeftSideSubHead" >{allProperties?.length} homes available</Typography>
@@ -375,15 +636,23 @@ const Properties = () => {
                                             <div className="propertyLeftSide" >
                                                 <div className="leftSideProperties" >
                                                     <div className="property" >
-                                                        {/* <Carousel className="caro" >
-                                                        {
-                                                            item?.images?.map((immg) => ( */}
-                                                                <div  >
-                                                                    <img className="carrImagee" style={{borderRadius : '10px' , objectFit : 'cover'}} src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="100%" height="130" alt="Slider Cover" />
-                                                                </div>
-                                                            {/* ))
-                                                        }
-                                                        </Carousel> */}
+                                                    {
+                                                        item?.images ? (
+                                                            item?.images.length > 0 && (
+                                                                <Carousel className="caro" >
+                                                                {
+                                                                    item?.images?.map((immg) => (
+                                                                        <div  >
+                                                                            <img className="carrImagee" style={{borderRadius : '10px' , objectFit : 'cover'}} src={immg} width="100%" height="130" alt="Slider Cover" />
+                                                                        </div>
+                                                                    ))
+                                                                }
+                                                                </Carousel>
+                                                            )
+                                                        ) : (
+                                                            <Typography style={{fontSize : '15px' , fontWeight : 600}} >Could Not Load Images</Typography>
+                                                        )
+                                                    }
                                                                 <div className="propDetail" >
                                                                     <Typography className="propPrice" >${item?.price}</Typography>
                                                                     <Tooltip placement="bottom" title="Save for later">
@@ -416,44 +685,50 @@ const Properties = () => {
                         }
                         </Spin>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={12} xl={9} >
-                        <GoogleMap
-                            mapContainerStyle={mapStyles}
-                            zoom={13}
-                            center={defaultCenter}
-                            scrollwheel = {false}
-                            streetViewControl = {false}
-                            mapTypeControl = {false}
-                            className="gglMap"
-                        >
-                            {
-                                    locations.map(item => {
-                                    return (
-                                        <Marker key={item.name}
-                                            position={item.location}
-                                            onClick={() => onSelect(item)}
-                                            icon = 'https://img.icons8.com/material-rounded/2x/cottage--v2.png'
-                                        />
-                                        )
-                                    })
-                                }
-                                {
-                                    selected.location &&
-                                    (
-                                        <InfoWindow
-                                            position={selected.location}
-                                            clickable={true}
-                                            onCloseClick={() => setSelected({})}
-                                        >
-                                            <div style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
-                                                <img alt="property cover" width="100%" height="70" src={selected?.image} />
-                                                <Typography style={{fontSize: '15px' , fontWeight : 600  }} >{selected?.name}</Typography>
-                                                <Typography style={{fontSize: '12px' , paddingTop : '10px'  }} >{selected?.address}</Typography>
-                                            </div>
-                                        </InfoWindow>
-                                    )
-                                }
-                        </GoogleMap>
+                    <Col xs={{span : 23 , offset : 1}} sm={{span : 24 , offset : 0}} md={{span : 23 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span : 9 , offset : 0}} >
+                        {
+                            allProperties !== {} ? (
+                                <GoogleMap
+                                    mapContainerStyle={mapStyles}
+                                    zoom={13}
+                                    center={defaultCenter}
+                                    scrollwheel = {false}
+                                    streetViewControl = {false}
+                                    mapTypeControl = {false}
+                                    className="gglMap"
+                                > 
+                                    {
+                                            locations.map(item => {
+                                            return (
+                                                <Marker key={item.name}
+                                                    position={item.location}
+                                                    onClick={() => onSelect(item)}
+                                                    icon = 'https://img.icons8.com/material-rounded/2x/cottage--v2.png'
+                                                />
+                                                )
+                                            })
+                                        }
+                                        {
+                                            selected.location &&
+                                            (
+                                                <InfoWindow
+                                                    position={selected.location}
+                                                    clickable={true}
+                                                    onCloseClick={() => setSelected({})}
+                                                >
+                                                    <div style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
+                                                        <img alt="property cover" width="100%" height="70" src={selected?.image} />
+                                                        <Typography style={{fontSize: '15px' , fontWeight : 600  }} >{selected?.name}</Typography>
+                                                        <Typography style={{fontSize: '12px' , paddingTop : '10px'  }} >{selected?.address}</Typography>
+                                                    </div>
+                                                </InfoWindow>
+                                            )
+                                        }
+                                </GoogleMap>
+                            ) : (
+                                <Typography style={{fontSize : '20px', fontWeight : 700, marginTop : '150px' , color : '#c0392b' , textAlign : 'center' }} >Map Could Not be Displayed</Typography>
+                            )
+                        }
                     </Col>
             </Row>
 

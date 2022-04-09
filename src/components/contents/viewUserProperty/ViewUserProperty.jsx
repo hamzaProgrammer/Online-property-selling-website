@@ -20,8 +20,6 @@ const AddProperty = () => {
     const [myImages , setmyImages ] = useState([])
     const location = useNavigate();
 
-
-
     // images one
     const [previewVisible , setPreviewVisible ] = useState(false);
     const [imgToBeShown , setimgToBeShown ] = useState("");
@@ -58,7 +56,7 @@ const AddProperty = () => {
             const getProperty = async () => {
                 const {data} = await getSingleProperty(id);
                 console.log("data?.Property : ", data?.Property)
-               setmyImages(data?.Property?.images)
+                setmyImages(data?.Property?.images)
                 setPropertyData(data?.Property)
             }
             getProperty();
@@ -141,8 +139,6 @@ const AddProperty = () => {
     function cancel(e) {
         console.log(e)
     }
-
-
     const changeState = () => {
         setIsEdit(false)
     }
@@ -173,6 +169,7 @@ const AddProperty = () => {
                                                     className="viewProperDiv"
                                                     preview={{ visible: false }}
                                                     width={220}
+                                                    height={100}
                                                     src={myImages[0]}
                                                     onClick={() => setVisible(true)}
                                                 />
@@ -282,6 +279,7 @@ const AddProperty = () => {
                                                     className="imgPreViewProp"
                                                     preview={{ visible: false }}
                                                     width={220}
+                                                    style={{maxWidth : '100px'}}
                                                     src={myImages[0]}
                                                     onClick={() => setVisible(true)}
                                                 />

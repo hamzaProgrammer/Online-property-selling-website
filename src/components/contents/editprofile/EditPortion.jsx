@@ -16,7 +16,6 @@ const EditPortion = () => {
     const {id} = useParams();
     const [isError, setIsError] = useState(false)
     const [isSuccess, setIsSuccess ] = useState(false)
-    const [myImage , setMyImage ] = useState(null)
     const [msg, setMsg ] = useState(false)
     useEffect(() => {
         const getData = async () => {

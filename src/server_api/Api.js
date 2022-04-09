@@ -26,7 +26,7 @@ const updatePassword = (email , userEmail) => API.put(`/api/users/updatePassword
 // getting all properties by city
 const getPropertiesByCity = (city) => API.get(`/api/properties/getAllOfACity/${city}`);
 const getSingleProperty = (id) => API.get(`/api/properties/getSingleProperty/${id}`);
-const getRelatedProperties = (city, user) => API.get(`/api/properties/getAllRelatedProperties/${city}/${user}`);
+const getRelatedProperties = (id) => API.get(`/api/properties/getAllRelatedProperties/${id}`);
 const getAllSellPropertiesOfUser = (id) => API.get(`/api/properties/getAllSellPropertiesOfUser/${id}`);
 const getAllSoldPropertiesOfUser = (id) => API.get(`/api/properties/getAllSoldPropertiesOfUser/${id}`);
 const addUserProperty = (data) => API.post(`/api/properties/addNew`, data);
@@ -42,6 +42,7 @@ const getAllRentPropertiesOfCityByUsers = (city) => API.get(`/api/properties/get
 const getAllRentPropertiesOfCityByAdmin = (city) => API.get(`/api/properties/getAllRentPropertiesByAdmin/${city}`);
 const makeStripePayment = (data) => API.put(`/api/properties/makePayments` , data);
 const getSubscription = (id, type, userId) => API.put(`/api/properties/getSubscription/${id}/${type}/${userId}`);
+const sendMailForChatting = (data , id) => API.put(`/api/properties/sendMailToOwnerAndUser/${id}` , data);
 
 
 
@@ -96,5 +97,6 @@ module.exports = {
     getSubscription,
     sendMail,
     checkOtp,
-    updatePassword
+    updatePassword,
+    sendMailForChatting
 }

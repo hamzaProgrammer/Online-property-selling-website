@@ -105,6 +105,13 @@
     }
 }
 
+
+@media screen and (width: 414px){
+    .searchCity{
+        max-width : 320px;
+    }
+}
+
 @media screen and (max-width: 375px){
     .searchCity{
         width : 350px;

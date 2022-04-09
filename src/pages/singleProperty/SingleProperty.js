@@ -21,7 +21,7 @@ const Home = () => {
           <MainImages />
           <Details />
           <Desc />
-          {/* <Carousel /> */}
+          <Carousel />
         </Content>
         <Footer style={{background : '#FFFFFF'}}>
           <MyFooter />

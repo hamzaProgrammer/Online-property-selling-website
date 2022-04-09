@@ -217,12 +217,38 @@
 
 }
 
+@media screen and (width: 540px){
+    .filterButtons{
+        min-width : 510px
+    }
+}
+
 @media screen and (max-width:425px){
     .filterButtons{
         flex-direction: space-around;
         width : 400px
     }   
 
+}
+
+
+@media screen and (width:414px){
+    .filterButtons{
+        max-width : 350px
+    }
+}
+
+
+@media screen and (width: 393px){
+    .filterButtons{
+        max-width : 350px
+    }
+}
+
+@media screen and (width: 390px){
+    .filterButtons{
+        max-width : 350px
+    }
 }
 
 @media screen and (max-width:375px){

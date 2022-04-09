@@ -14,7 +14,7 @@
     width : 95%;
     padding-left : 10px;
     padding-right : 10px;
-    height : 50%;
+    max-height : 150px;
 }
 
 .carImage:hover{
@@ -68,11 +68,11 @@
     display : flex;
     width : 100%;
     justify-content : space-between;
-    width : 200px;
+    width : 250px;
 }
 
 .innerDivText{
-    font-size : 12px;
+    font-size : 14px;
     font-weight : 600;
     color :#636e72
 }
@@ -106,6 +106,13 @@
     width : 270px;
 }
 
+/* related head */
+.relatedMyHead{
+    font-size : 20px;
+    font-weight : 700;
+    margin-bottom : 25px
+
+}
 
 @media screen and (max-width: 992px){
     .CarItem{

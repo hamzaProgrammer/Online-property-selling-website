@@ -345,16 +345,17 @@ const AddNewProperty = () => {
                         {
                             isEdit === true ? (
                                 <>
-                                    <Typography className="labelNewAddProperty" > Image 1</Typography>
+                                    <Typography className="labelNewAddProperty" style={{marginBottom : '10px'}} > Image 1</Typography>
                                     <Image
                                         className="viewProperDiv"
                                         width={"90%"}
+                                        style={{maxHeight: '200px' , minHeight: '200px'}}
                                         src={myImages[0]}
                                     />
                                 </>
                             ) : (
                                 <>
-                                    <Typography className="labelNewAddProperty" >Upload Image 1</Typography>
+                                    <Typography className="labelNewAddProperty" style={{marginBottom : '10px'}} >Upload Image 1</Typography>
                                     <div className="clearfix">
                                         <Upload
                                             action="//jsonplaceholder.typicode.com/posts/"
@@ -377,16 +378,17 @@ const AddNewProperty = () => {
                         {
                             isEdit === true ? (
                                 <>
-                                    <Typography className="labelNewAddProperty" > Image 2</Typography>
+                                    <Typography className="labelNewAddProperty" style={{marginBottom : '10px'}} > Image 2</Typography>
                                     <Image
                                         className="viewProperDiv"
                                         width={"90%"}
+                                        style={{maxHeight: '200px' , minHeight: '200px'}}
                                         src={myImages[1]}
                                     />
                                 </>
                             ) : (
                                 <>
-                                    <Typography className="labelNewAddProperty" >Upload Image 2</Typography>
+                                    <Typography className="labelNewAddProperty" style={{marginBottom : '10px'}} >Upload Image 2</Typography>
                                     <div className="clearfix">
                                         <Upload
                                             action="//jsonplaceholder.typicode.com/posts/"
@@ -404,31 +406,16 @@ const AddNewProperty = () => {
                                 </>
                             )
                         }
-                        {
-                            propertyData?.subsEndDate === "" ? (
-                                <>
-                                    <div  className="showToggle" >
-                                        <Typography className="toggleText" >Subscribe this Property?</Typography>
-                                        <Switch checked={modal2Visible} onChange={onChange} />
-                                    </div>
-                                    <div className="hideToggle" >
-                                        <Typography className="toggleText" >Subscribe this Property?</Typography>
-                                        <Switch checked={modal2Visible} onChange={onChange} />
-                                    </div>
-                                </>
-                            ) : (
-                                <Typography className="toggleText" style={{marginTop :'40px'}}  >Subscription will end on {propertyData?.subsEndDate} </Typography>
-                            )
-                        }
                         </Col>
                         <Col xs={24} sm={12} md={8} lg={8} style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
                         {
                             isEdit === true ? (
                                 <>
-                                    <Typography className="labelNewAddProperty" > Image 3</Typography>
+                                    <Typography className="labelNewAddProperty" style={{marginBottom : '10px'}} > Image 3</Typography>
                                     <Image
                                         className="viewProperDiv"
                                         width={"90%"}
+                                        style={{maxHeight: '200px' , minHeight: '200px'}}
                                         src={myImages[2]}
                                     />
                                 </>
@@ -453,6 +440,28 @@ const AddNewProperty = () => {
                             )
                         }
                         </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={0} sm={0} md={4} lg={8} xl={8} ></Col>
+                        <Col xs={22} sm={22} md={20} lg={8} xl={8} >
+                            {
+                            propertyData?.subsType === "" ? (
+                                <>
+                                    <div  className="showToggle" style={{marginTop : '40px'}} >
+                                        <Typography className="toggleText" >Subscribe this Property?</Typography>
+                                        <Switch checked={modal2Visible} onChange={onChange} />
+                                    </div>
+                                    <div className="hideToggle" >
+                                        <Typography className="toggleText" >Subscribe this Property?</Typography>
+                                        <Switch checked={modal2Visible} onChange={onChange} />
+                                    </div>
+                                </>
+                            ) : (
+                                <Typography className="toggleText" style={{marginTop :'40px'}}  >Subscription will end on {propertyData?.subsEndDate} </Typography>
+                            )
+                        }
+                        </Col>
+                        <Col xs={0} sm={0} md={0} lg={8} xl={8} ></Col>
                     </Row>
                     <Row style={{marginTop : '15px'}} >
                         <Col xs={0} sm={0} md={8} lg={8} style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >

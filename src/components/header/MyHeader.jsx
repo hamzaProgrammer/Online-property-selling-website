@@ -67,11 +67,14 @@ const Navbar = () => {
 
     const [user, setUser ] = useState("")
     const location = useNavigate();
+    const [myUser, setMyUser ] = useState("")
+
 
     //checking if admin logged in or not
     useEffect(() => {
         const checkAdmin = () => {
             const user = JSON.parse(localStorage.getItem('profile'))
+            setMyUser(user?.User?._id)
             if (user) {
                 setUser(user?.Admin?.Id)
             } else {
@@ -86,7 +89,7 @@ const Navbar = () => {
         if(user === ""){
             openNotification();
         }else{
-            location(`/getAllUserSavedSearches/${user}`)
+            location(`/getAllUserSavedSearches/${myUser}`)
         }
     }
 
@@ -122,8 +125,26 @@ const Navbar = () => {
         });
     };
 
+    // navigating towards profile page
+    const handleMyProfile = async () => {
+        if(user !== ""){
+            location(`/profile/${myUser}`)
+        }else{
+            openNotification();
+        }
+    }
+
+    // navigating towards all saved homes page
+    const handleSavedHomes = async () => {
+        if(user !== ""){
+            location(`/allSavedProperties/${myUser}`)
+        }else{
+            openNotification();
+        }
+    }
+
     return(
-        <>{console.log("user : ", user)}
+        <>
             <div className="main_navbar" >
                 <div className="logo">
                 <Link to="/">
@@ -138,7 +159,7 @@ const Navbar = () => {
                     </Dropdown>
                 </div>
                 <div className="all_btns newBtns">
-                    <Button className="btn rightBtn hide" size="medium"  >Saved Homes</Button>
+                    <Button className="btn rightBtn hide" size="medium" onClick={handleSavedHomes} >Saved Homes</Button>
                     <Button className="btn rightBtn hide" size="medium" onClick={handleSavedSearches}  >Saved Searches</Button>
                     {
                         user === "" ? (
@@ -155,7 +176,8 @@ const Navbar = () => {
                     closable={false}  placement="right" color="primary" bodyStyle={{ backgroundColor: "#3B4144", padding: "0" , width : "100%"}}  onClose={onClose} visible={visible}>
                 <div className="drawer" >
                     <Collapse  onChange={callback} className="collapse" ghost expandIconPosition="right">
-                        <Panel header="Buy" key="1" className="panel" >
+                        <Button block className="MyProf" onClick={handleMyProfile} >Profile</Button>
+                        <Panel header="Buy" key="8" className="panel" >
                         </Panel>
                         <Panel header="Rent" key="2">
                             <Menu className="accord" >

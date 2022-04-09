@@ -2,23 +2,45 @@ import React , {useState , useEffect} from 'react'
 import { Row, Col ,Typography , Carousel , Pagination , Menu , Dropdown , Checkbox, Drawer , Button , Spin , Input , AutoComplete , message } from 'antd';
 import '../cityProperties/properties/Properties.css'
 import { DownOutlined ,MenuOutlined } from '@ant-design/icons'
-import GoogleMapReact from 'google-map-react';
 import {Link , useParams , useNavigate} from 'react-router-dom'
-import {getAllRentPropertiesOfCity , getAllRentPropertiesOfCityByUsers , getAllRentPropertiesOfCityByAdmin , addNewSavedSearch } from '../../../server_api/Api'
+import {getAllRentPropertiesOfCity , getAllRentPropertiesOfCityByUsers ,getPropertiesByCity, getAllRentPropertiesOfCityByAdmin , addNewSavedSearch } from '../../../server_api/Api'
 import '../cityProperties//filterBtns/FilterBtns.css'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed , faBath  , faRestroom } from '@fortawesome/free-solid-svg-icons'
 import './AllRentHomes.css'
+import {
+    useJsApiLoader,
+    GoogleMap,
+    Marker,
+    InfoWindow,
+} from '@react-google-maps/api'
 
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
 const Properties = () => {
     const { Search } = Input;
     const [ isSpinning , setIsSpinning ] = useState(false)
     const [ isSaved , setIsSaved ] = useState(false)
     // for drawer
     const [visible, setVisible] = useState(false);
+
+    // map
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: "AIzaSyDbvQuvGbCB0ghywwsM2tjlKBIPfXUSpHg",
+    })
+    const mapStyles = {
+        height: "100vh",
+        width: "100%"
+    };
+
+    const [ defaultCenter , setDefaultCenter ] = useState()
+    const [ locations , setLocatons ] = useState([]);
+    const [ selected, setSelected ] = useState({});
+    const onSelect = item => {
+        setSelected(item);
+    }
 
     const location = useNavigate();
     const [userId , setUserId ] = useState("")
@@ -132,16 +154,6 @@ const Properties = () => {
         </Menu>
     )
 
-    const defaultProps = {
-        center: {
-            lat: 59.95,
-            lng: 30.33
-        },
-        location : {
-            address: '1600 Amphitheatre Parkway, Mountain View, california.',
-        },
-        zoom: 11,
-    };
 
     const [allProperties , setProperties] = useState([])
     const {city} = useParams();
@@ -166,6 +178,28 @@ const Properties = () => {
         }
         setIsSpinning(false);
     }
+
+    // getting coordinates of current cities
+    useEffect(() => {
+        if(allProperties){
+            setIsSaved(false)
+            setIsSpinning(true);
+            if(allProperties.length > 0){
+                let newArray = [];
+                for(let i = 0 ; i !== allProperties.length; i++){
+                    if(allProperties[i]?.coordinates.length > 0){
+                        let location = {
+                                lat : Number(allProperties[i]?.coordinates[0]),
+                                lng : Number(allProperties[i]?.coordinates[1])
+                        }
+                        newArray.push({ name : allProperties[i]?.name , location : location , image : allProperties[i]?.images[1] , address : allProperties[i]?.address })
+                    }
+                }
+                setLocatons(newArray)
+            }
+            setIsSpinning(false);
+        }
+    },[allProperties])
 
     // for setting minPrice
     const setMyMinprice = (value) => {
@@ -243,6 +277,29 @@ const Properties = () => {
         setIsSpinning(false);
     }
 
+    // for search buttton
+    const options = [
+        {label: 'Izmir', value: 'Izmir'}, 
+        {label: 'Istanbul', value: 'Istanbul'},
+        {label: 'Ankara', value: 'Ankara'}, 
+        {label: 'Roka', value: 'Roka'},
+        {label: 'Anarkali', value: 'Anarkali'},
+        {label: 'Konya', value: 'Konya'},
+        {label: 'Trabzon', value: 'Trabzon'},
+        {label: 'Cesme', value: 'Cesme'},
+        {label: 'Mardin', value: 'Mardin'},
+        {label: 'Edrin', value: 'Edrin'},
+        {label: 'Marmaris', value: 'Marmaris'},
+        {label: 'Sivas', value: 'Sivas'},
+        {label: 'Kas', value: 'Kas'},
+        {label: 'Bartin', value: 'Bartin'},
+    ]
+
+    // messages
+    const LoginError = () => {
+        message.error('Please Sign In First to Save Search');
+    };
+
     // searching Cities
     const onSearch = (value) => {
         setIsSpinning(true);
@@ -250,30 +307,207 @@ const Properties = () => {
         const getData = async () => {
             let newValue = value.toLowerCase();
             setmyCity(newValue)
-            const {data} = await getAllRentPropertiesOfCity(newValue);
+            const {data} = await getPropertiesByCity(newValue);
             setProperties(data?.AllProperties)
             setIsSpinning(false);
+
+            if(newValue === "izmir"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.423733, lng: 27.142826
+                })
+            }
+            if(newValue === "istanbul"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.008240, lng: 28.978359
+                })
+            }
+            if(newValue === "ankara"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.933365, lng: 32.859741
+                })
+            }
+            if(newValue === "roka"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 44.5468, lng: -99.004965
+                })
+            }
+            if(newValue === "anarkali"){
+                console.log("city matched called also")
+                setDefaultCenter({
+                    lat: 31.562489, lng:  74.30936
+                })
+            }
+            if(newValue === "konya"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.87135, lng:  32.48464
+                })
+            }
+            if(newValue === "trabzon"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 40.997092, lng:  39.699957
+                })
+            }
+            if(newValue === "cesme"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.32278, lng: 26.30639
+                })
+            }
+            if(newValue === "mardin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.31309, lng: 40.74357
+                })
+            }
+            if(newValue === "edrin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 52.92571, lng: -4.129119
+                })
+            }
+            if(newValue === "marmaris"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 36.855, lng: 28.27417
+                })
+            }
+            if(newValue === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(newValue === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(newValue === "kas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 12.560737, lng: 24.170881
+                })
+            }
+            if(newValue === "bartin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.632258, lng: 32.327378
+                })
+            }
         }
         getData();
     }
-    // for search buttton
-    const options = [
-        {label: 'Izmir', value: 'Izmir'}, 
-        {label: 'Istanbul', value: 'Istanbul'},
-        {label: 'Ankara', value: 'Ankara'}, 
-        {label: 'Roka', value: 'Roka'},
-        {label: 'Anarkali', value: 'Anarkali'}
-    ]
+
+    // getting coordinates of current city
+    useEffect(() => {
+        setIsSaved(false)
+        if(allProperties){
+            if(myCity === "izmir"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.423733, lng: 27.142826
+                })
+            }
+            if(myCity === "istanbul"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.008240, lng: 28.978359
+                })
+            }
+            if(myCity === "ankara"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.933365, lng: 32.859741
+                })
+            }
+            if(myCity === "roka"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 44.5468, lng: -99.004965
+                })
+            }
+            if(myCity === "anarkali"){
+                console.log("city matched called also")
+                setDefaultCenter({
+                    lat: 31.562489, lng:  74.30936
+                })
+            }
+            if(myCity === "konya"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.87135, lng:  32.48464
+                })
+            }
+            if(myCity === "trabzon"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 40.997092, lng:  39.699957
+                })
+            }
+            if(myCity === "cesme"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.32278, lng: 26.30639
+                })
+            }
+            if(myCity === "mardin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.31309, lng: 40.74357
+                })
+            }
+            if(myCity === "edrin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 52.92571, lng: -4.129119
+                })
+            }
+            if(myCity === "marmaris"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 36.855, lng: 28.27417
+                })
+            }
+            if(myCity === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(myCity === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(myCity === "kas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 12.560737, lng: 24.170881
+                })
+            }
+            if(myCity === "bartin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.632258, lng: 32.327378
+                })
+            }
+        }
+    },[onSearch])
 
     // messages
-    const success = () => {
+    const mySuccess = () => {
         message.success('Search Saved SuccessFully');
     };
-    const error = () => {
+    const myError = () => {
         message.error('Saved Search Already Exists');
-    };
-    const LoginError = () => {
-        message.error('Please Sign In First to Save Search');
     };
 
     // saving search
@@ -290,10 +524,10 @@ const Properties = () => {
             const {data} = await addNewSavedSearch({ user : userId  , savedSearch : sendUrl});
 
             if(data?.success === true){
-                success();
+                mySuccess();
                 setIsSaved(true)
             }else{
-                error();
+                myError();
             }
         }
     }
@@ -344,7 +578,7 @@ const Properties = () => {
             <Row style={{marginTop : '20px'}} >
                     <Col xs={24} sm={24} md={{span : 22 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span: 12, offset : 1}} style={{marginBottom : '15px'}} >
                         <Spin spinning={isSpinning} >
-                            <Typography className="propertyLeftSideHead" >All Properties Available For Rent in {city.charAt(0).toUpperCase() + city.slice(1)} are </Typography>
+                            <Typography className="propertyLeftSideHead" >All Properties Available For Rent in {myCity.charAt(0).toUpperCase() + myCity.slice(1)} are </Typography>
                             {
                                 allProperties?.length > 1 && (
                                     <Typography className="propertyLeftSideSubHead" >{allProperties?.length} Properties Available</Typography>
@@ -410,18 +644,50 @@ const Properties = () => {
                         }
                         </Spin>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={12} xl={9} className="gglMap"  >
-                            <GoogleMapReact
-                                defaultCenter={defaultProps.center}
-                                defaultZoom={defaultProps.zoom}
-                                bootstrapURLKeys={{ key: "AIzaSyDbvQuvGbCB0ghywwsM2tjlKBIPfXUSpHg" }}
-                            >
-                            <AnyReactComponent
-                                lat={59.955413}
-                                lng={30.337844}
-                                text={city}
-                            />
-                            </GoogleMapReact>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={9} >
+                        {
+                            allProperties !== {} ? (
+                                <GoogleMap
+                                    mapContainerStyle={mapStyles}
+                                    zoom={13}
+                                    center={defaultCenter}
+                                    scrollwheel = {false}
+                                    streetViewControl = {false}
+                                    mapTypeControl = {false}
+                                    className="gglMap"
+                                >
+                                    {
+                                            locations.map(item => {
+                                            return (
+                                                <Marker key={item.name}
+                                                    position={item.location}
+                                                    onClick={() => onSelect(item)}
+                                                    icon = 'https://img.icons8.com/material-rounded/2x/cottage--v2.png'
+                                                />
+                                                )
+                                            })
+                                        }
+                                        {
+                                            selected.location &&
+                                            (
+                                                <InfoWindow
+                                                    position={selected.location}
+                                                    clickable={true}
+                                                    onCloseClick={() => setSelected({})}
+                                                >
+                                                    <div style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
+                                                        <img alt="property cover" width="100%" height="70" src={selected?.image} />
+                                                        <Typography style={{fontSize: '15px' , fontWeight : 600  }} >{selected?.name}</Typography>
+                                                        <Typography style={{fontSize: '12px' , paddingTop : '10px'  }} >{selected?.address}</Typography>
+                                                    </div>
+                                                </InfoWindow>
+                                            )
+                                        }
+                                </GoogleMap>
+                            ) : (
+                                <Typography style={{fontSize : '20px', fontWeight : 700, marginTop : '150px' , color : '#c0392b' , textAlign : 'center' }} >Map Could Not be Displayed</Typography>
+                            )
+                        }
                     </Col>
             </Row>
 

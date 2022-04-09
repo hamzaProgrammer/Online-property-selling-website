@@ -34,7 +34,6 @@
     "react-apexcharts": "^1.4.0",
     "react-chartjs-2": "^4.0.1",
     "react-dom": "^17.0.2",
-    "react-geocode": "^0.2.3",
     "react-google-autocomplete": "^2.6.1",
     "react-multi-carousel": "^2.8.0",
     "react-responsive-carousel": "^3.2.23",

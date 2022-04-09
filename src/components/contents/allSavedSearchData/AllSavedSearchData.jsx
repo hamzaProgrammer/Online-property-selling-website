@@ -2,17 +2,20 @@ import React , {useState , useEffect} from 'react'
 import { Row, Col ,Typography , Carousel , Pagination , Menu , Dropdown , Checkbox, Drawer , Button , Spin , Input , AutoComplete , message } from 'antd';
 import '../cityProperties/properties/Properties.css'
 import { DownOutlined ,MenuOutlined } from '@ant-design/icons'
-import GoogleMapReact from 'google-map-react';
-import {Link , useParams , useNavigate , useLocation } from 'react-router-dom'
-import {getAllRentPropertiesOfCity , getAllRentPropertiesOfCityByUsers , getAllRentPropertiesOfCityByAdmin , addNewSavedSearch } from '../../../server_api/Api'
+import {Link  , useNavigate , useParams,  useLocation  } from 'react-router-dom'
+import {getAllRentPropertiesOfCity , getAllRentPropertiesOfCityByUsers , getPropertiesByCity, getAllRentPropertiesOfCityByAdmin , addNewSavedSearch } from '../../../server_api/Api'
 import '../cityProperties//filterBtns/FilterBtns.css'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed , faBath  , faRestroom } from '@fortawesome/free-solid-svg-icons'
 import '../allRentHomes/AllRentHomes.css'
+import {
+    GoogleMap,
+    Marker,
+    InfoWindow,
+} from '@react-google-maps/api'
 
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const Properties = () => {
     const { Search } = Input;
     const [ isSpinning , setIsSpinning ] = useState(false)
@@ -23,6 +26,19 @@ const Properties = () => {
     const location = useNavigate();
     const [userId , setUserId ] = useState("")
     const {search} = useLocation();
+
+    // map
+    const mapStyles = {
+        height: "100vh",
+        width: "100%"
+    };
+
+    const [ defaultCenter , setDefaultCenter ] = useState()
+    const [ locations , setLocatons ] = useState([]);
+    const [ selected, setSelected ] = useState({});
+    const onSelect = item => {
+        setSelected(item);
+    }
 
    //checking if admin logged in or not
     useEffect(() => {
@@ -143,137 +159,139 @@ const Properties = () => {
         </Menu>
     )
 
-    const defaultProps = {
-        center: {
-            lat: 59.95,
-            lng: 30.33
-        },
-        location : {
-            address: '1600 Amphitheatre Parkway, Mountain View, california.',
-        },
-        zoom: 11,
-    };
-
     const [allProperties , setProperties] = useState([])
     const {url} = useParams();
-    const [ myurl , setmyurl ] = useState(url)
     const [ newUrl , setNewUrl ] = useState(url);
+    const [ myUrl , setMyUrl ] = useState(window.location.href);
     const [ beds , setBeds ] = useState(0);
     const [ minMyPrice , setMinPrice ] = useState(0);
     const [ houseTyp , sethouseTyp ] = useState('');
-
+    const mySearch = useLocation().search;
+    const city = new URLSearchParams(mySearch).get('city');
+    const [ myCity , setmyCity ] = useState(city)
+    
     // for setting bedrooms
     const setMyBeds = (value) => {
-        // setIsSpinning(true);
-        // if (window.location.href.indexOf("bedrooms") > -1) {
-        //     setBeds(value)
-        // }else{
-        //     if(newUrl.length > 0){
-        //         setNewUrl(`&bedrooms=${value}`)
-        //     }else{
-        //         setNewUrl(`bedrooms=${value}`)
-        //     }
-        //     setBeds(value)
-        // }
-        // setIsSpinning(false);
+        setIsSpinning(true);
+        if (window.location.href.indexOf("bedrooms") > -1) {
+            setBeds(value)
+        }else{
+            if(newUrl.length > 0){
+                setNewUrl(`&bedrooms=${value}`)
+            }else{
+                setNewUrl(`bedrooms=${value}`)
+            }
+            setBeds(value)
+        }
+        setIsSpinning(false);
     }
 
     // for setting minPrice
     const setMyMinprice = (value) => {
-        // setIsSpinning(true);
-        // if (window.location.href.indexOf("minPrice") > -1) {
-        //     setMinPrice(value)
-        // }else{
-        //     if(newUrl.length > 0){
-        //         setNewUrl(`&minPrice=${value}`)
-        //     }else{
-        //         setNewUrl(`minPrice=${value}`)
-        //     }
-        //     setMinPrice(value)
-        // }
-        // setIsSpinning(false);
+        setIsSpinning(true);
+        if (window.location.href.indexOf("minPrice") > -1) {
+            setMinPrice(value)
+        }else{
+            if(newUrl.length > 0){
+                setNewUrl(`&minPrice=${value}`)
+            }else{
+                setNewUrl(`minPrice=${value}`)
+            }
+            setMinPrice(value)
+        }
+        setIsSpinning(false);
     }
 
     // for setting house type
     const setMyHouseType = (value) => {
-        // setIsSpinning(true);
-        // if (window.location.href.indexOf("houseType") > -1) {
-        //     sethouseTyp(value)
-        // }else{
-        //     if(newUrl.length > 0){
-        //         setNewUrl(`&houseType=${value}`)
-        //     }else{
-        //         setNewUrl(`houseType=${value}`)
-        //     }
-        //     sethouseTyp(value)
-        // }
-        // setIsSpinning(false);
+        setIsSpinning(true);
+        if (window.location.href.indexOf("houseType") > -1) {
+            sethouseTyp(value)
+        }else{
+            if(newUrl.length > 0){
+                setNewUrl(`&houseType=${value}`)
+            }else{
+                setNewUrl(`houseType=${value}`)
+            }
+            sethouseTyp(value)
+        }
+        setIsSpinning(false);
     }
 
     // gettng data for first time
     useEffect(() => {
-        // setIsSpinning(true);
-        // setIsSaved(false)
-        // const geturlData = async () => {
-        //     const {data} = await getAllRentPropertiesOfurl(myurl);
-        //     setProperties(data?.AllProperties)
-        //     setIsSpinning(false);
-        // }
-        // geturlData();
-    },[myurl])
+        setIsSpinning(true);
+        setIsSaved(false)
+        const getCityData = async () => {
+            const {data} = await getAllRentPropertiesOfCity(myCity);
+            setProperties(data?.AllProperties)
+            setIsSpinning(false);
+        }
+        getCityData();
+    },[myCity])
 
     // filtering products
     useEffect(() => {
-        // setIsSpinning(true);
-        // setIsSaved(false)
-        // axios.get("http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `url=${myurl}` + "&" + `${newUrl}`)
-        // .then(function (response) {
-        //     setProperties(response?.data?.AllProperties)
-        // })
-        // .catch(function (error) {
-        //     console.log( "got error : " , error);
-        // })
-        // setIsSpinning(false);
+        setIsSpinning(true);
+        setIsSaved(false)
+        axios.get("http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `city=${myCity}` + "&" + `${newUrl}`)
+        .then(function (response) {
+            setProperties(response?.data?.AllProperties)
+        })
+        .catch(function (error) {
+            console.log( "got error : " , error);
+        })
+        setIsSpinning(false);
     },[newUrl])
 
-    // getting all userrs listing done in that url
+    // filtering products
+    useEffect(() => {
+        setIsSpinning(true);
+        setIsSaved(false)
+        axios.get("http://localhost:8080/api/properties/getAllSellPropertiesFilters?" +`${mySearch}`)
+        .then(function (response) {
+            setProperties(response?.data?.AllProperties)
+        })
+        .catch(function (error) {
+            console.log( "got error : " , error);
+        })
+        setIsSpinning(false);
+    },[newUrl])
+
+    // getting all userrs listing done in that city
     const getUsersData = async () => {
-        // setIsSpinning(true);
-        // setIsSaved(false)
-        // const {data} = await getAllRentPropertiesOfurlByUsers(myurl);
-        //     setProperties(data?.AllProperties)
-        //     setIsSpinning(false);
+        setIsSpinning(true);
+        setIsSaved(false)
+        const {data} = await getAllRentPropertiesOfCityByUsers(myCity);
+            setProperties(data?.AllProperties)
+            setIsSpinning(false);
     }
 
-    // getting all admin listing done in that url
+    // getting all admin listing done in that city
     const getAdminsData = async () => {
-        // setIsSpinning(true);
-        // setIsSaved(false)
-        // const {data} = await getAllRentPropertiesOfurlByAdmin(myurl);
-        // setProperties(data?.AllProperties)
-        // setIsSpinning(false);
+        setIsSpinning(true);
+        setIsSaved(false)
+        const {data} = await getAllRentPropertiesOfCityByAdmin(myCity);
+        setProperties(data?.AllProperties)
+        setIsSpinning(false);
     }
 
-    // searching Cities
-    const onSearch = (value) => {
-        // setIsSpinning(true);
-        // setIsSaved(false)
-        // const getData = async () => {
-        //     let newValue = value.toLowerCase();
-        //     setmyurl(newValue)
-        //     const {data} = await getAllRentPropertiesOfurl(newValue);
-        //     setProperties(data?.AllProperties)
-        //     setIsSpinning(false);
-        // }
-        // getData();
-    }
     // for search buttton
     const options = [
         {label: 'Izmir', value: 'Izmir'}, 
         {label: 'Istanbul', value: 'Istanbul'},
         {label: 'Ankara', value: 'Ankara'}, 
         {label: 'Roka', value: 'Roka'},
-        {label: 'Anarkali', value: 'Anarkali'}
+        {label: 'Anarkali', value: 'Anarkali'},
+        {label: 'Konya', value: 'Konya'},
+        {label: 'Trabzon', value: 'Trabzon'},
+        {label: 'Cesme', value: 'Cesme'},
+        {label: 'Mardin', value: 'Mardin'},
+        {label: 'Edrin', value: 'Edrin'},
+        {label: 'Marmaris', value: 'Marmaris'},
+        {label: 'Sivas', value: 'Sivas'},
+        {label: 'Kas', value: 'Kas'},
+        {label: 'Bartin', value: 'Bartin'},
     ]
 
     // messages
@@ -287,28 +305,237 @@ const Properties = () => {
         message.error('Please Sign In First to Save Search');
     };
 
-    // saving search
-    const saveSearch = async () => {
-        // if(userId === ""){
-        //     LoginError();
-        // }else{
-        //     let sendUrl = "";
-        //     if(newUrl === ""){
-        //         sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `url=${myurl}`;
-        //     }else{
-        //         sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `url=${myurl}` + "&" + `${newUrl}`;
-        //     }
-        //     const {data} = await addNewSavedSearch({ user : userId  , savedSearch : sendUrl});
+    // searching Cities
+    const onSearch = (value) => {
+        setIsSpinning(true);
+        setIsSaved(false)
+        const getData = async () => {
+            let newValue = value.toLowerCase();
+            setmyCity(newValue)
+            const {data} = await getPropertiesByCity(newValue);
+            setProperties(data?.AllProperties)
+            setIsSpinning(false);
 
-        //     if(data?.success === true){
-        //         success();
-        //         setIsSaved(true)
-        //     }else{
-        //         error();
-        //     }
-        // }
+            if(newValue === "izmir"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.423733, lng: 27.142826
+                })
+            }
+            if(newValue === "istanbul"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.008240, lng: 28.978359
+                })
+            }
+            if(newValue === "ankara"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.933365, lng: 32.859741
+                })
+            }
+            if(newValue === "roka"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 44.5468, lng: -99.004965
+                })
+            }
+            if(newValue === "anarkali"){
+                console.log("city matched called also")
+                setDefaultCenter({
+                    lat: 31.562489, lng:  74.30936
+                })
+            }
+            if(newValue === "konya"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.87135, lng:  32.48464
+                })
+            }
+            if(newValue === "trabzon"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 40.997092, lng:  39.699957
+                })
+            }
+            if(newValue === "cesme"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.32278, lng: 26.30639
+                })
+            }
+            if(newValue === "mardin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.31309, lng: 40.74357
+                })
+            }
+            if(newValue === "edrin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 52.92571, lng: -4.129119
+                })
+            }
+            if(newValue === "marmaris"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 36.855, lng: 28.27417
+                })
+            }
+            if(newValue === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(newValue === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(newValue === "kas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 12.560737, lng: 24.170881
+                })
+            }
+            if(newValue === "bartin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.632258, lng: 32.327378
+                })
+            }
+        }
+        getData();
     }
 
+    // getting coordinates of current city
+    useEffect(() => {
+        setIsSaved(false)
+        if(allProperties){
+            if(myCity === "izmir"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.423733, lng: 27.142826
+                })
+            }
+            if(myCity === "istanbul"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.008240, lng: 28.978359
+                })
+            }
+            if(myCity === "ankara"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.933365, lng: 32.859741
+                })
+            }
+            if(myCity === "roka"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 44.5468, lng: -99.004965
+                })
+            }
+            if(myCity === "anarkali"){
+                console.log("city matched called also")
+                setDefaultCenter({
+                    lat: 31.562489, lng:  74.30936
+                })
+            }
+            if(myCity === "konya"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.87135, lng:  32.48464
+                })
+            }
+            if(myCity === "trabzon"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 40.997092, lng:  39.699957
+                })
+            }
+            if(myCity === "cesme"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 38.32278, lng: 26.30639
+                })
+            }
+            if(myCity === "mardin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 37.31309, lng: 40.74357
+                })
+            }
+            if(myCity === "edrin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 52.92571, lng: -4.129119
+                })
+            }
+            if(myCity === "marmaris"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 36.855, lng: 28.27417
+                })
+            }
+            if(myCity === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(myCity === "sivas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 39.746118, lng: 37.006024
+                })
+            }
+            if(myCity === "kas"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 12.560737, lng: 24.170881
+                })
+            }
+            if(myCity === "bartin"){
+                console.log("city matched")
+                setDefaultCenter({
+                    lat: 41.632258, lng: 32.327378
+                })
+            }
+        }
+    },[onSearch])
+
+    // messages
+    const mySuccess = () => {
+        message.success('Search Saved SuccessFully');
+    };
+    const myError = () => {
+        message.error('Saved Search Already Exists');
+    };
+
+    // saving search
+    const saveSearch = async () => {
+        if(userId === ""){
+            LoginError();
+        }else{
+            let sendUrl = "";
+            if(newUrl === ""){
+                sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `city=${myCity}`;
+            }else{
+                sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `city=${myCity}` + "&" + `${newUrl}`;
+            }
+            const {data} = await addNewSavedSearch({ user : userId  , savedSearch : sendUrl});
+
+            if(data?.success === true){
+                mySuccess();
+                setIsSaved(true)
+            }else{
+                myError();
+            }
+        }
+    }
     return (
         <>
             <Row>
@@ -321,9 +548,9 @@ const Properties = () => {
                             onSelect={(value)=> {
                                 onSearch(value)
                             }}
-                            className="searchurl"
+                            className="searchCity"
                         >
-                            <Search placeholder="Search Any url" size="large"  onSearch={onSearch} enterButton />
+                            <Search placeholder="Search Any City" size="large"  onSearch={onSearch} enterButton />
                         </AutoComplete>
                     </div>
                 </Col>
@@ -355,7 +582,7 @@ const Properties = () => {
             <Row style={{marginTop : '20px'}} >
                     <Col xs={24} sm={24} md={{span : 22 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span: 12, offset : 1}} style={{marginBottom : '15px'}} >
                         <Spin spinning={isSpinning} >
-                            <Typography className="propertyLeftSideHead" >All Properties Available For Rent in  are </Typography>
+                            <Typography className="propertyLeftSideHead" >All Properties Available For Rent in {myCity.charAt(0).toUpperCase() + myCity.slice(1)} are </Typography>
                             {
                                 allProperties?.length > 1 && (
                                     <Typography className="propertyLeftSideSubHead" >{allProperties?.length} Properties Available</Typography>
@@ -421,18 +648,50 @@ const Properties = () => {
                         }
                         </Spin>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={12} xl={9} className="gglMap"  >
-                            <GoogleMapReact
-                                defaultCenter={defaultProps.center}
-                                defaultZoom={defaultProps.zoom}
-                                bootstrapURLKeys={{ key: "AIzaSyDbvQuvGbCB0ghywwsM2tjlKBIPfXUSpHg" }}
-                            >
-                            <AnyReactComponent
-                                lat={59.955413}
-                                lng={30.337844}
-                                text={myurl}
-                            />
-                            </GoogleMapReact>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={9} >
+                        {
+                            allProperties !== {} ? (
+                                <GoogleMap
+                                    mapContainerStyle={mapStyles}
+                                    zoom={13}
+                                    center={defaultCenter}
+                                    scrollwheel = {false}
+                                    streetViewControl = {false}
+                                    mapTypeControl = {false}
+                                    className="gglMap"
+                                >
+                                    {
+                                            locations.map(item => {
+                                            return (
+                                                <Marker key={item.name}
+                                                    position={item.location}
+                                                    onClick={() => onSelect(item)}
+                                                    icon = 'https://img.icons8.com/material-rounded/2x/cottage--v2.png'
+                                                />
+                                                )
+                                            })
+                                        }
+                                        {
+                                            selected.location &&
+                                            (
+                                                <InfoWindow
+                                                    position={selected.location}
+                                                    clickable={true}
+                                                    onCloseClick={() => setSelected({})}
+                                                >
+                                                    <div style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
+                                                        <img alt="property cover" width="100%" height="70" src={selected?.image} />
+                                                        <Typography style={{fontSize: '15px' , fontWeight : 600  }} >{selected?.name}</Typography>
+                                                        <Typography style={{fontSize: '12px' , paddingTop : '10px'  }} >{selected?.address}</Typography>
+                                                    </div>
+                                                </InfoWindow>
+                                            )
+                                        }
+                                </GoogleMap>
+                            ) : (
+                                <Typography style={{fontSize : '20px', fontWeight : 700, marginTop : '150px' , color : '#c0392b' , textAlign : 'center' }} >Map Could Not be Displayed</Typography>
+                            )
+                        }
                     </Col>
             </Row>
 

@@ -1,19 +1,12 @@
 import React , {useState , useEffect} from 'react'
-import { Row, Col ,Card , Typography , Form, Input, Button , Divider , Alert  } from 'antd';
+import { Row, Col ,Card , Typography , Button , Divider , Alert  } from 'antd';
 import './ProfilePage.css'
-import {MessageOutlined ,PhoneOutlined ,MailOutlined , HomeOutlined} from '@ant-design/icons'
+import {PhoneOutlined ,MailOutlined , HomeOutlined} from '@ant-design/icons'
 import PropertySlider from './PropertySlider'
 import {getAllSellPropertiesOfUser , getAllSoldPropertiesOfUser , getUserInfo} from '../../../server_api/Api'
 import {useParams , useNavigate} from 'react-router-dom'
 
 const ProfilePage = () => {
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
     const [allSellproperties , setAllSellProperties ] = useState([]);
     const [allSoldproperties , setAllSoldProperties ] = useState([]);
     const [userInfo , setuserInfo ] = useState({});
@@ -26,7 +19,7 @@ const ProfilePage = () => {
     useEffect(() => {
             const checkAdmin = () => {
             const user = JSON.parse(localStorage.getItem('profile'))
-            setuserId(user?.Admin?.Id)
+            setuserId(user?.User?._id)
             if (user) {
                 setAdminLogin(true)
             } else {
@@ -41,7 +34,6 @@ const ProfilePage = () => {
             const getData = async () => {
                 const {data} = await getAllSellPropertiesOfUser(id);
                 setAllSellProperties(data?.Properties)
-                console.log("gotting data : ", data)
             }
             getData();
     
@@ -70,7 +62,13 @@ const ProfilePage = () => {
             <Col xs={0} sm={0} md={0} lg={6} xl={6} >
                 <Card bordered={false} className="userCard" >
                     <div className="userCardData" >
-                        <img alt="user profile cover" className="userProfImage" src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg?size=338&ext=jpg" />
+                        {
+                            userInfo?.profilePic ? (
+                                <img alt="user profile cover" className="userProfImage" src={userInfo?.profilePic} />
+                            ) : (
+                                <img alt="user profile cover" className="userProfImage" src="https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg?size=338&ext=jpg" />
+                            )
+                        }
                         <div className="subDetOfUser">
                             {
                                 userInfo?.name ? (
@@ -79,64 +77,16 @@ const ProfilePage = () => {
                                     <Typography  className="nameOfUser">N/A</Typography>
                                 )
                             }
-                            {/* <Typography  className="tagOfUser">Real Estate Manager at TurkEstates </Typography> */}
                         </div>
-                        {/* <Typography className="contactTitle">Contact us</Typography>
-                        <div style={{ width : '100%' }} >
-                            <Form
-                                name="basic"
-                                layout="vertical"
-                                labelCol={{ span: 8 }}
-                                wrapperCol={{ span: 16 }}
-                                initialValues={{ remember: true }}
-                                onFinish={onFinish}
-                                onFinishFailed={onFinishFailed}
-                                autoComplete="off"
-                                className="userProfForm"
-                            >
-                            <Form.Item
-                                label="Email"
-                                name="username"
-                                type="email"
-                                style={{fontWeight : 700 , color : 'red' , marginBottom : '5px' , width : '100%'}}
-                            >
-                                <Input className="userFormItem" />
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Name"
-                                name="password"
-                                style={{fontWeight : 700 , color : 'red' , marginBottom : '5px' , width : '100%'}}
-                            >
-                                <Input className="userFormItem" />
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Phone"
-                                name="password"
-                                style={{fontWeight : 700 , color : 'red' , marginBottom : '5px' , width : '100%'}}
-                            >
-                                <Input className="userFormItem" />
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Description"
-                                name="password"
-                                style={{fontWeight : 700 , color : 'red' , marginBottom : '5px' , width : '100%'}}
-                            >
-                                <Input className="userFormItem" style={{height : '70px'}} />
-                            </Form.Item>
-
-                            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                                <Button block className="userFormBtn" >
-                                    <MessageOutlined style={{fontSize :'17px'}} /> Send Message
-                                </Button>
-                            </Form.Item>
-                            </Form>
-                        </div> */}
                         <Divider style={{backgroundColor : '#dfe6e9' , marginTop : '0px'}} />
                         <div className="userContactDet" >
-                            <Typography className="userNameTitle">Jhon's Peronel Info</Typography>
+                            {
+                                userInfo?.name ? (
+                                    <Typography className="userNameTitle">Your Peronel Info</Typography>
+                                ) : (
+                                    <Typography className="userNameTitle">Your Peronel Info</Typography>
+                                )
+                            }
                         </div>
                     </div>
                     <Row style={{marginTop : '15px'}} >
@@ -147,7 +97,7 @@ const ProfilePage = () => {
                             <div style={{display : 'flex' , justifyContent : 'flex-start' , flexDirection : 'column'}} >
                                 <Typography style={{fontSize : '15px' , fontWeight : 600 , textAlign : 'left'}}>Address</Typography>
                                 {
-                                    userInfo?.name ? (
+                                    userInfo?.address  ? (
                                         <Typography style={{fontSize : '13px' , fontWeight : 600 , textAlign : 'left' , color : '#636e72'}}>{userInfo?.address}</Typography>
                                     ) : (
                                         <Typography style={{fontSize : '13px' , fontWeight : 600 , textAlign : 'left' , color : '#636e72'}}>N/A</Typography>
@@ -162,10 +112,10 @@ const ProfilePage = () => {
                         </Col>
                         <Col xs={20} >
                             <div style={{display : 'flex' , justifyContent : 'flex-start' , flexDirection : 'column'}} >
-                                <Typography style={{fontSize : '15px' , fontWeight : 600 , textAlign : 'left'}}>Phone Not</Typography>
+                                <Typography style={{fontSize : '15px' , fontWeight : 600 , textAlign : 'left'}}>Phone No</Typography>
                                 {
-                                    userInfo?.name ? (
-                                        <Typography style={{fontSize : '13px' , fontWeight : 600 , textAlign : 'left' , color : '#636e72'}}>{userInfo?.phoneNo}</Typography>
+                                    userInfo?.phoneNo ? (
+                                        <Typography style={{fontSize : '13px' , fontWeight : 600 , textAlign : 'left' , color : '#636e72'}}>+90 {userInfo?.phoneNo}</Typography>
                                     ) : (
                                         <Typography style={{fontSize : '13px' , fontWeight : 600 , textAlign : 'left' , color : '#636e72'}}>N/A</Typography>
                                     )
@@ -191,7 +141,7 @@ const ProfilePage = () => {
                         </Col>
                     </Row>
                     {
-                        id !== userId && (
+                        id === userId && (
                             <div style={{display : 'flex' , justifyContent : 'flex-end' , alignItems : 'center' , marginBottom: '0px'}} >
                                 <Button  type="link" style={{fontWeight : 600 , color : '#0984e3' , marginBottom:  '0px'}} href={`/editProfile/${userId}`} >Edit Profile</Button>
                             </div>
@@ -199,7 +149,7 @@ const ProfilePage = () => {
                     }
                 </Card>
             </Col>
-            <Col xs={24} sm={24} md={24} lg={{span : 17 , offset : 1}} xl={{span : 17 , offset : 1}}>
+            <Col xs={{span : 24 , offset : 0}} sm={{span : 24 , offset : 0}} md={{span : 24 , offset : 0}} lg={{span : 17 , offset : 1}} xl={{span : 17 , offset : 1}}>
                 <div style={{backgroundColor : '#FFFFFF' , borderRadius : '10px'}} >
                     <Row  >
                         <Col xs={24} sm={8} md={12} lg={0} xl={0}  >
@@ -280,7 +230,7 @@ const ProfilePage = () => {
                     </Row>
                 </div>
                 <Row>
-                    <Col xs={{span : 21 , offset : 1}} sm={{span : 22 , offset : 1}} md={{span : 22 , offset : 1}} lg={{span : 24 , offset : 0}} >
+                    <Col xs={{span : 23 , offset : 1}} sm={{span : 22 , offset : 1}} md={{span : 22 , offset : 1}} lg={{span : 24 , offset : 0}} >
                         <PropertySlider selling={allSellproperties} sold={allSoldproperties} />
                     </Col>
                 </Row>

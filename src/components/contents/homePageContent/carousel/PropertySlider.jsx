@@ -5,6 +5,48 @@ import {HeartOutlined} from '@ant-design/icons'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
+
+const SampleNextArrow = props => {
+  const { className, style, onClick } = props
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        color: 'black',
+        fontSize: '35px',
+        lineHeight: '1.5715'
+      }}
+      onClick={onClick}
+    >
+      
+    </div>
+  )
+}
+
+const SamplePrevArrow = props => {
+  const { className, style, onClick } = props
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        color: 'black',
+        fontSize: '35px',
+        lineHeight: '1.5715',
+      }}
+      onClick={onClick}
+    >
+      
+    </div>
+  )
+}
+
+const settings = {
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
+}
+
 const PropertySlider = () => {
     const responsive = {
         superLargeDesktop: {
@@ -41,7 +83,7 @@ const PropertySlider = () => {
                 <Col sm={4} md={5}></Col>
             </Row>
             <Row>
-                <Col xs={{span : 23 , offset : 1}} sm={{span : 23 , offset : 1}} md={{span : 23 , offset : 1}} lg={{span : 23 , offset : 1}} xl={{span : 23 , offset : 1}} >
+                <Col xs={{span : 24 , offset : 0}} sm={{span : 23 , offset : 1}} md={{span : 23 , offset : 1}} lg={{span : 23 , offset : 1}} xl={{span : 23 , offset : 1}} >
                     <Carousel
                         swipeable={true}
                         draggable={false}
