@@ -46,8 +46,6 @@ const SaveNewSearch = async (req, res) => {
 // get All Users saved searches
 const getMySavedSearches = async (req, res) => {
     const {user} = req.params
-
-
     if (!user) {
         return res.status(504).json({
             success: false,

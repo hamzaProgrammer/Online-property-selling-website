@@ -4,6 +4,7 @@ const Admins = require('../models/AdminSchema')
 const URL = "http://localhost:8080"
 const cron = require('node-cron');
 const stripe = require('stripe')(process.env.Stripe_Secret_key)
+const nodeMailer = require("nodemailer");
 
 
 // node geo coder
@@ -379,34 +380,52 @@ const getSingleProperty = async (req, res) => {
 
 // getting all properties related
 const getAllRelatedProperties = async (req, res) => {
-    const {city , user} = req.params;
-    if (!city) {
+    const {id} = req.params;
+
+    if (!id) {
         return res.json({
             success: false,
-            message: "Please Provide Some Filters"
+            message: "Please Provide All Required Fields"
         })
     } else {
-        try {
-            // getting same city properties
-            const isExist = await Properties.find({city : city}, {createdAt : 0 , updatedAt : 0 , __v : 0}).limit(3);
-
-            // getting properties with same city and username
-            const allWithSameCity = await Properties.find({city : city , properiter : user }, {createdAt : 0 , updatedAt : 0 , __v : 0}).limit(3);
-
-            // getting properties with same username only
-            const allWithSameUser = await Properties.find({properiter : user }, {createdAt : 0 , updatedAt : 0 , __v : 0}).limit(3);
-
-            if ((isExist.length < 1) && (allWithSameCity.length < 1) && (allWithSameUser.length < 1) ) {
+        const prop = await Properties.findById(id);
+        if(!prop){
                 return res.json({
-                    success: false,
-                    message: "No Related Properties Found"
-                })
-            }
+                success: false,
+                message: "Property Not Found"
+            })
+        }
+
+        try {
             let allProperties = [];
-            allProperties.push(allWithSameCity);
-            allProperties.push(allWithSameUser);
-            allProperties.push(isExist);
-            
+            let allIds = [];
+
+            // getting same city properties
+            const isExist = await Properties.find({city : prop.city}, {createdAt : 0 , updatedAt : 0 , __v : 0}).limit(3);
+            if(Object.keys(isExist).length > 0){
+                for(let i = 0; i !== isExist.length ; i++){
+                    allIds.push(isExist[i]._id);
+                    allProperties.push(isExist[i]);
+                }
+            }
+
+            // getting all other properties of user
+            for(let i = 0; i !== allProperties.length; i++){
+                let isEx = await Properties.findOne({_id : {$nin : allIds } , properiter : prop.properiter ,  city : prop.city}, {createdAt : 0 , updatedAt : 0 , __v : 0});
+                if(isEx){
+                    allProperties.push(isEx);
+                    allIds.push(isEx._id)
+                }
+            }
+
+            // getting all other properties of same city
+            for(let i = 0; i !== allProperties.length; i++){
+                let isEx = await Properties.findOne({_id : {$nin : allIds } ,  city : prop.city}, {createdAt : 0 , updatedAt : 0 , __v : 0});
+                if(isEx){
+                    allProperties.push(isEx);
+                }
+            }
+
             return res.json({
                 Property : allProperties,
                 success: true,
@@ -1345,6 +1364,92 @@ const makeStripePayment = async (req,res) => {
     }
 }
 
+// sending mails for contacting between owner and user
+const sendMail = async(req,res) => {
+    const {email , phoneNo , message , url } = req.body
+    const {id} = req.params;
+
+    let owner;
+    try{
+        // finding owner of property first
+        owner = await Users.findById(id);
+        if(!owner){
+            owner = await Admins.findById(id);
+            if(!owner){
+                return
+                    res.json({
+                        success: false,
+                        message: 'Could Not Find Owner of This Property'
+                    })
+            }
+        }
+    }catch(e){
+        console.log("error is in upper : ", e)
+        return res.json({ success : false , message : "Could Not Find Owner of this Property"})
+    }
+
+    // sending mail to owner first
+    try{
+        // step 01
+        var transport= nodeMailer.createTransport({
+            service : "gmail",
+            auth: {
+                user : 'doorstep1000@gmail.com', //own eamil
+                pass: 'hamza_78674', // own password
+            }
+        })
+        // setp 02
+        const mailOption = {
+            from: 'doorstep1000@gmail.com', // sender/own email
+            to: owner.email, // reciver eamil
+            subject: "Trulia mail for your Property",
+            text : `Dear Member, a user having email ${email} and Phone No +90 ${phoneNo} has sent you message regarding your property ${url}.\n Please reply user with all required data he has asked for
+            immediately to have a good and a fair deal. \n You can also contact via phone No as well as email.
+            \n Thanks or using our service.`,
+        }
+        // step 03
+        transport.sendMail(mailOption, (err, info) => {
+            if (err) {
+                console.log("Error occured : ", err)
+                return res.json({ success: false, message : " Error in sending mail" , err})
+            } else {
+                console.log("Email Sent and info is : ", info.response)
+                res.json({success: true,  message: 'Email Sent SuccessFully to Owner' })
+            }
+        })
+    }catch(e){
+        console.log("error is in lower : ", e)
+        res.json({ success : false , message : "Could Not Send Email to Owner of Property"})
+    }
+
+    try{
+        // setp 02
+        const mailOptionOne = {
+            from: 'doorstep1000@gmail.com', // sender/own email
+            to: email, // reciver eamil
+            subject: "Trulia mail for Request of Property",
+            text : `Dear Member, We have sent en email to user with your message also. \n Owner will contact you in a while. \n
+            If Owner does not respinds you via email , you can contact owner at his/her phone No +90 ${owner.phoneNo}.
+            \n We hope you may get the house or property as you want.\n\n Thanks for using our service. `,
+        }
+        // step 03
+        transport.sendMail(mailOptionOne, (err, info) => {
+            if (err) {
+                console.log("Error occured : ", err)
+                return res.json({ success: false, message : " Error in sending mail" , err})
+            } else {
+                console.log("Email Sent and info is : ", info.response)
+                return res.json({success: true,  message: 'Email Sent SuccessFully to Owner' })
+            }
+        })
+    }catch(e) {
+        console.log("error is in lower most : ", e)
+        return res.json({ success : false , message : "Please try again after some time. Thanks"})
+    }
+
+
+}
+
 module.exports = {
     addNewProperty,
     getAllPropertiesOfCity,
@@ -1368,5 +1473,6 @@ module.exports = {
     getAllRentPropertiesOfCityOfUsersOnly,
     getAllRentPropOfCityOfAdminOnly,
     gettingSubscription,
-    makeStripePayment
+    makeStripePayment,
+    sendMail
 }

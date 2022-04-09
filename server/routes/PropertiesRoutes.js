@@ -23,7 +23,8 @@ const {
     getAllRentPropertiesOfCityOfUsersOnly,
     getAllRentPropOfCityOfAdminOnly,
     gettingSubscription,
-    makeStripePayment
+    makeStripePayment,
+    sendMail
 } = require('../controllers/PropertiesControllers')
 const multer = require("multer")
 var storage = multer.diskStorage({
@@ -56,7 +57,7 @@ router.get('/api/properties/getPropertiesWithFilter', getAllPropertiesWithFilter
 router.get('/api/properties/getSingleProperty/:id', getSingleProperty);
 
 // get all related  properties
-router.get('/api/properties/getAllRelatedProperties/:city/:user', getAllRelatedProperties);
+router.get('/api/properties/getAllRelatedProperties/:id', getAllRelatedProperties);
 
 // get all latest properties
 router.get('/api/properties/getAllLatestProperties', getAllLatestProperties);
@@ -108,6 +109,10 @@ router.put('/api/properties/getSubscription/:id/:type/:userId', gettingSubscript
 
 // stripe payment
 router.put('/api/properties/makePayments', makeStripePayment);
+
+// send mail for chatting
+router.put('/api/properties/sendMailToOwnerAndUser/:id', sendMail);
+
 
 
 module.exports = router;
