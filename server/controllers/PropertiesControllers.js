@@ -401,13 +401,14 @@ const getAllRelatedProperties = async (req, res) => {
             let allIds = [];
 
             // getting same city properties
-            const isExist = await Properties.find({city : prop.city}, {createdAt : 0 , updatedAt : 0 , __v : 0}).limit(3);
-            if(Object.keys(isExist).length > 0){
+            const isExist = await Properties.find({city : prop.city, _id : {$ne : id }}, {createdAt : 0 , updatedAt : 0 , __v : 0}).limit(3);
+            if(isExist.length > 0){
                 for(let i = 0; i !== isExist.length ; i++){
                     allIds.push(isExist[i]._id);
                     allProperties.push(isExist[i]);
                 }
             }
+            allIds.push(id);
 
             // getting all other properties of user
             for(let i = 0; i !== allProperties.length; i++){

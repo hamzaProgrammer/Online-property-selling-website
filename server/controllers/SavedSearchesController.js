@@ -4,7 +4,6 @@ const SavedSearches = require('../models/SavedSearches')
 // add New Search
 const SaveNewSearch = async (req, res) => {
     const { user , savedSearch } = req.body;
-
     if (!user || !savedSearch ) {
         return res.json({
             success: false,
