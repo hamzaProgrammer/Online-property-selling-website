@@ -80,11 +80,11 @@
 
 /* address */
 .propAddre{
-    font-size : 17px;
+    font-size : 14px;
     font-weight: 500;
-    width : 80%;
+    max-width : 80%;
     color : #2d3436;
-    word-wrap: break;
+    word-break: break-all;
 }
 
 /* carouse; image hover effect */

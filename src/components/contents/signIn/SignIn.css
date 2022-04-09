@@ -160,6 +160,12 @@
     }
 }
 
+@media screen and (width: 375px){
+    .signupmaindiv{
+        padding-bottom : -30px;
+    }
+}
+
 @media screen and (max-width: 320px){
     .formItemSignUp{
         max-width : 220px

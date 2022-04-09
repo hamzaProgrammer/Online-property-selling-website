@@ -6,7 +6,7 @@ import './Footer.css'
 const Footer = () => {
     return (
         <>
-            <Row style={{marginTop : '20px' , borderTop : '1px solid #ecf0f1' , paddingTop : '15px'}}>
+            <Row style={{marginTop : '20px' , borderTop : '1px solid #b2bec3' , paddingTop : '15px'}}>
                 <Col xs={12} sm={{span : 6 , offset : 0}} md={{span : 4 , offset : 3}}>
                     <div className="singleItem" >
                         <Typography className="mainHead">Company</Typography>

@@ -23,7 +23,7 @@ const PropertyDesc = () => {
     return(
         <>
             <Row>
-                <Col sm={{span : 21 , offset : 2}} md={{span : 18 , offset: 3 }} lg={{span : 13 , offset : 3}} style={{ padding: '10px'}} >
+                <Col xs={{span : 23 , offset : 1}} sm={{span : 21 , offset : 2}} md={{span : 18 , offset: 3 }} lg={{span : 13 , offset : 3}} style={{ padding: '10px'}} >
                     <div className="descDiv" >
                         <Typography className="DescHead" >Description</Typography>
                         {

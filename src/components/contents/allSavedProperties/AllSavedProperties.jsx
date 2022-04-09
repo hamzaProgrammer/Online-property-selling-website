@@ -2,7 +2,7 @@ import React , {useState , useEffect} from 'react'
 import { Row, Col, Typography , Tooltip , notification , Popconfirm } from 'antd';
 import './AllSavedProp.css'
 import {HeartOutlined} from '@ant-design/icons'
-import {useParams} from 'react-router-dom'
+import {useParams ,Link} from 'react-router-dom'
 import {getAllSavedLaterOfUser , deleteSavedLater} from '../../../server_api/Api'
 
 
@@ -63,7 +63,9 @@ const AllSavedProperties = () => {
                                 allProperties?.map((item) => (
                                     <Col className="gutter-row" xs={24} sm={24} md={12} lg={8} xl={6}>
                                         <div className="mainItem" >
-                                            <img alt="Property Cover" className="propCover" src={item?.PropertyImage[1]} />
+                                            <Link to={`/singleProperty/${item?._id}`}>
+                                                <img alt="Property Cover" className="propCover" src={item?.PropertyImage[1]} />
+                                            </Link>
                                             <div style={{display : 'flex' , justifyContent : 'space-around' , alignItems : 'center' , marginTop : '5px'}} >
                                                 <Typography className="PropPrice" >$ {item?.PropertyPrice}</Typography>
                                                 <Tooltip placement="topLeft" title="Remove from Save Later">

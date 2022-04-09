@@ -125,7 +125,6 @@
 }
 
 
-
 .miniText{
     font-size : 11px;
     font-weight : 400;
@@ -211,6 +210,32 @@
     }
 }
 
+@media screen and (width : 912px){
+    .myTabs{
+        margin-top : 230px;
+        width : 700px;
+        margin-left: 0px;
+        padding-right: 0px;
+    }
+    .input{
+        min-width : 560px;
+        margin-right : 50px
+    }
+}
+
+@media screen and (width : 820px){
+    .myTabs{
+        margin-top : 230px;
+        width : 700px;
+        margin-left: 0px;
+        padding-right: 0px;
+    }
+    .input{
+        min-width : 520px;
+        margin-right : 70px
+    }
+}
+
 @media screen and (max-width : 768px){
     .rightBtn{
         width : 120px;
@@ -228,8 +253,13 @@
     }
     .myTabs{
         margin-top : 230px;
-        margin-left : 10px;
-        margin-right : 10px
+        width : 700px;
+        margin-left: 0px;
+        padding-right: 0px;
+    }
+    .input{
+        min-width : 520px;
+        margin-right : 70px
     }
 }
 
@@ -253,6 +283,23 @@
         margin-top : 230px;
         margin-left : 0px;
         margin-right : 10px
+    }
+}
+
+@media screen and (width : 540px){
+    .myTabs{
+        margin-top : 230px;
+        max-width : 500px;
+        margin-left: 15px;
+        padding-right: 0px;
+    }
+    .sheduleTab{
+        max-width : 100%;
+    }
+    .input{
+        max-width : 100px;
+        width : 100px;
+        padding-right : 50px
     }
 }
 
@@ -294,7 +341,37 @@
     }
 }
 
-@media screen and (max-width : 375px){
+@media screen and (width : 412px){
+    .myTabs{
+        margin-top : 230px;
+        width : 400px;
+        margin-left: 15px
+    }
+    .input{
+        width : 320px
+    }
+}
+
+@media screen and (width : 393px){
+    .myTabs{
+        margin-top : 230px;
+        max-width : 380px;
+        margin-left: 12px
+    }
+}
+
+@media screen and (width : 360px){
+    .myTabs{
+        margin-top : 230px;
+        max-width : 330px;
+        margin-left: 15px
+    }
+    .input{
+        width : 290px
+    }
+}
+
+@media screen and (width : 375px){
     .mainDetails{
         margin-top : -50px;
     }
@@ -304,7 +381,7 @@
     .myTabs{
         margin-top : 230px;
         max-width : 350px;
-        margin-left: 20px
+        margin-left: 10px
     }
 }
 

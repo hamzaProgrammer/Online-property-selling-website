@@ -34,12 +34,18 @@ const EditPortion = () => {
             <div className="editProfileSecDiv" >
                 <Typography className="editprofileMainHead" >Your Saved Searches</Typography>
                 {
-                    Object.values(userInfo)?.map((item) => (
-                        <>
-                            <InnerComp item={item} setIsRender={setIsRender} />
-                            <Divider style={{backgroundColor : '#8395a7'}} />
-                        </>
-                    ))
+
+                    userInfo.length > 0 ? (
+                        Object.values(userInfo)?.map((item) => (
+                            <>
+                                <InnerComp item={item} setIsRender={setIsRender} />
+                                <Divider style={{backgroundColor : '#8395a7'}} />
+                            </>
+                        ))
+                    ) : (
+                        <Typography style={{fontSize : '22px' , fontWeight : 600 , textAlign : 'center' , marginTop : '50px' , color : '#c0392b' }} >No Saved Searches Available</Typography>
+                    )
+
                 }
             </div>
         </>

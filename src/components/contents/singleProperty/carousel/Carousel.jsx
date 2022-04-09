@@ -109,7 +109,7 @@ const MyCarousel = () =>{
                                 relatedPropData?.map((item) => (
                                     <>
                                         <div  >
-                                            <Link to={`/singleProperty/}`}>
+                                            <Link to={`/singleProperty/${item._id}`}>
                                                 <img alt="cover" style={{borderRadius : '20px'}} className="carImage" src={item?.images[0]} />
                                             </Link>
                                             <div className="carouselDiv" >

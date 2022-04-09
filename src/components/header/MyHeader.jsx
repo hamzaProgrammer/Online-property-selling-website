@@ -1,6 +1,6 @@
 import React, {useState , useEffect} from 'react'
 import './MyNavbar.css'
-import {Button, Typography, Dropdown, Menu, Drawer, Collapse, Modal, Form, Input, Divider, Alert , notification  } from 'antd';
+import {Button, Typography, Dropdown, Menu, Drawer, Collapse, Modal, Form, Input, Divider, Alert , notification , Popconfirm   } from 'antd';
 import {MenuOutlined ,CloseOutlined ,FacebookOutlined , GoogleOutlined} from '@ant-design/icons'
 import {Link , useNavigate} from 'react-router-dom'
 
@@ -143,6 +143,27 @@ const Navbar = () => {
         }
     }
 
+    const [popVisible, setpopVisible ] = React.useState(false);
+    const [confirmLoading, setConfirmLoading] = React.useState(false);
+
+    const handleOk = () => {
+        setConfirmLoading(true);
+        setpopVisible(true)
+        setTimeout(() => {
+            setpopVisible(false);
+            setConfirmLoading(false);
+        }, 1000);
+        handleSignOut()
+    };
+
+    const handleCancel = () => {
+        setpopVisible(false);
+    };
+    const showPopconfirm = () => {
+        setpopVisible(true);
+    };
+
+
     return(
         <>
             <div className="main_navbar" >
@@ -165,7 +186,15 @@ const Navbar = () => {
                         user === "" ? (
                             <Button className="btn loginBtn" size="medium" onClick={handleSignIn}  >Sign up or Log in</Button>
                         ) : (
-                            <Button className="btn loginBtn" size="medium" onClick={handleSignOut}  >Sign Out</Button>
+                            <Popconfirm
+                                title="Are You Sure?"
+                                visible={popVisible}
+                                onConfirm={handleOk}
+                                okButtonProps={{ loading: confirmLoading }}
+                                onCancel={handleCancel}
+                            >
+                                <Button className="btn loginBtn" size="medium" onClick={showPopconfirm} >Sign Out</Button>
+                            </Popconfirm>
                         )
                     }
                     <MenuOutlined onClick={showDrawer} className="menuIcon"  />

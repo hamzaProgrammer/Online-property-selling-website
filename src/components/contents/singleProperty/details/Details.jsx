@@ -119,7 +119,7 @@ const Details = () => {
         <>
             <Row style={{marginTop : '20px'}} >
                 <Col xs={0} sm={0} md={0} lg={0}></Col>
-                <Col xs={{span : 22 , offset : 2}} sm={{span : 20 , offset : 2}} md={{span : 18 , offset : 3}} lg={{span : 22 , offset : 2}} >
+                <Col xs={{span : 24 , offset : 0}} sm={{span : 20 , offset : 2}} md={{span : 20 , offset : 2}} lg={{span : 23 , offset : 1}} >
                     <Row >
                         <Col xs={24} sm={24} md={24} lg={16} >
                             <Spin spinning={isSpinning} >

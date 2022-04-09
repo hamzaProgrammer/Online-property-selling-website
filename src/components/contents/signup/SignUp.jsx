@@ -52,7 +52,9 @@ const SignUp = () => {
     <>
         <Row>
             <Col xs={24} sm={24} md={14} lg={12} className="signupmaindiv" >
-                <Typography className="signUpLogo">Trulia</Typography>
+                <Link to="/">
+                    <Typography className="signUpLogo">Trulia</Typography>
+                </Link>
                 <div className="signUpCompDiv" >
                     <Typography className="formHead">Create An Account </Typography>
                     <Form

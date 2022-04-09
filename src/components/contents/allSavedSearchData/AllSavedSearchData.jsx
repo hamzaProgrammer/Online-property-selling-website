@@ -19,6 +19,7 @@ import {
 const Properties = () => {
     const { Search } = Input;
     const [ isSpinning , setIsSpinning ] = useState(false)
+     const [allProperties , setProperties] = useState([])
     const [ isSaved , setIsSaved ] = useState(false)
     // for drawer
     const [visible, setVisible] = useState(false);
@@ -39,6 +40,28 @@ const Properties = () => {
     const onSelect = item => {
         setSelected(item);
     }
+
+    // getting coordinates of current cities
+    useEffect(() => {
+        if(allProperties){
+            setIsSaved(false)
+            setIsSpinning(true);
+            if(allProperties.length > 0){
+                let newArray = [];
+                for(let i = 0 ; i !== allProperties.length; i++){
+                    if(allProperties[i]?.coordinates.length > 0){
+                        let location = {
+                                lat : Number(allProperties[i]?.coordinates[0]),
+                                lng : Number(allProperties[i]?.coordinates[1])
+                        }
+                        newArray.push({ name : allProperties[i]?.name , location : location , image : allProperties[i]?.images[1] , address : allProperties[i]?.address })
+                    }
+                }
+                setLocatons(newArray)
+            }
+            setIsSpinning(false);
+        }
+    },[allProperties])
 
    //checking if admin logged in or not
     useEffect(() => {
@@ -159,7 +182,7 @@ const Properties = () => {
         </Menu>
     )
 
-    const [allProperties , setProperties] = useState([])
+   
     const {url} = useParams();
     const [ newUrl , setNewUrl ] = useState(url);
     const [ myUrl , setMyUrl ] = useState(window.location.href);
@@ -169,6 +192,8 @@ const Properties = () => {
     const mySearch = useLocation().search;
     const city = new URLSearchParams(mySearch).get('city');
     const [ myCity , setmyCity ] = useState(city)
+
+
     
     // for setting bedrooms
     const setMyBeds = (value) => {

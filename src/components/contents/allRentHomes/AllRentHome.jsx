@@ -1,16 +1,15 @@
 import React , {useState , useEffect} from 'react'
-import { Row, Col ,Typography , Carousel , Pagination , Menu , Dropdown , Checkbox, Drawer , Button , Spin , Input , AutoComplete , message } from 'antd';
+import { Row, Col ,Typography , Carousel , Pagination , Menu , Dropdown , Checkbox, Drawer , Button , Spin , Input , AutoComplete , message , Tooltip , notification } from 'antd';
 import '../cityProperties/properties/Properties.css'
-import { DownOutlined ,MenuOutlined } from '@ant-design/icons'
+import { DownOutlined ,MenuOutlined , HeartOutlined} from '@ant-design/icons'
 import {Link , useParams , useNavigate} from 'react-router-dom'
-import {getAllRentPropertiesOfCity , getAllRentPropertiesOfCityByUsers ,getPropertiesByCity, getAllRentPropertiesOfCityByAdmin , addNewSavedSearch } from '../../../server_api/Api'
+import { getAllRentPropertiesOfCityByAdmin ,  getAllRentPropertiesOfCityByUsers , addNewSavedLater , getAllRentPropertiesOfCity , getPropertiesByCity, getAllSellPropertiesOfCityByAdmin , addNewSavedSearch } from '../../../server_api/Api'
 import '../cityProperties//filterBtns/FilterBtns.css'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed , faBath  , faRestroom } from '@fortawesome/free-solid-svg-icons'
 import './AllRentHomes.css'
 import {
-    useJsApiLoader,
     GoogleMap,
     Marker,
     InfoWindow,
@@ -26,10 +25,6 @@ const Properties = () => {
     const [visible, setVisible] = useState(false);
 
     // map
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyDbvQuvGbCB0ghywwsM2tjlKBIPfXUSpHg",
-    })
     const mapStyles = {
         height: "100vh",
         width: "100%"
@@ -58,8 +53,6 @@ const Properties = () => {
         checkAdmin();
     }, [location])
 
-
-
     const openDrawer = () => {
         setVisible(true);
     };
@@ -71,6 +64,15 @@ const Properties = () => {
     const  changeHomeType = (e) => {
         console.log(`checked = ${e.target.checked}`);
     }
+
+    const success = () => {
+        message.success('Property Add Saved for Later SuccessFully');
+    };
+
+    const error = () => {
+        message.error("Property Already Saved for Future");
+    };
+
     const minPrice = (
         <Menu className="priceRngMenu" >
             <Menu.Item className="priceRngMenuItem" onClick={() => setMyMinprice(10000) } >
@@ -500,7 +502,42 @@ const Properties = () => {
                 })
             }
         }
-    },[onSearch])
+    },[myCity])
+
+    const [user, setUser ] = useState("")
+    //checking if admin logged in or not
+    useEffect(() => {
+      const checkAdmin = () => {
+        const user = JSON.parse(localStorage.getItem('profile'))
+        if (user) {
+          setUser(user?.User?._id)
+        } else {
+          setUser("")
+        }
+      }
+      checkAdmin();
+    }, [location])
+
+    // saving later
+    const saveLater = async (value) => {
+        if(user === ""){
+            openNotification();
+        }else{
+            const {data} = await addNewSavedLater({ user : user , property : value} );
+            if(data?.success === true){
+                success();
+            }else{
+                error()
+            }
+        }
+    }
+
+    const openNotification = () => {
+        notification.open({
+            message: 'Please Sign In or Sign Up First',
+            description: <Button href="/signin" ghost type="link" >Sign In</Button>
+        });
+    };
 
     // messages
     const mySuccess = () => {
@@ -521,7 +558,11 @@ const Properties = () => {
             }else{
                 sendUrl = "http://localhost:8080/api/properties/getAllSellPropertiesFilters?" + `city=${myCity}` + "&" + `${newUrl}`;
             }
-            const {data} = await addNewSavedSearch({ user : userId  , savedSearch : sendUrl});
+            let newObj = {
+                user : user,
+                savedSearch : sendUrl
+            }
+            const {data} = await addNewSavedSearch(newObj);
 
             if(data?.success === true){
                 mySuccess();
@@ -600,42 +641,53 @@ const Properties = () => {
                             allProperties?.length > 0 ? (
                                 <>
                                 <Row>
-                                {
+                                    {
                                         allProperties?.map((item) => (
-                                        <Col xs={24} sm={12} md={12} lg={12} xl={12} >
-                                            <div className="propertyLeftSide" >
-                                                <div className="leftSideProperties" >
-                                                    <div className="property" >
-                                                        <Carousel className="caro" >
+                                            <Col xs={24} sm={12} md={12} lg={12} xl={12} >
+                                                <div className="propertyLeftSide" >
+                                                    <div className="leftSideProperties" >
+                                                        <div className="property" >
                                                         {
-                                                            item?.images?.map((immg) => (
-                                                                <div key={immg} >
-                                                                    <img className="carrImagee" style={{borderRadius : '10px' , objectFit : 'cover'}} src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="100%" height="130" alt="Slider Cover" />
-                                                                </div>
-                                                            ))
+                                                            item?.images ? (
+                                                                item?.images.length > 0 && (
+                                                                    <Carousel className="caro" >
+                                                                    {
+                                                                        item?.images?.map((immg) => (
+                                                                            <div  >
+                                                                                <img className="carrImagee" style={{borderRadius : '10px' , objectFit : 'cover'}} src={immg} width="100%" height="130" alt="Slider Cover" />
+                                                                            </div>
+                                                                        ))
+                                                                    }
+                                                                    </Carousel>
+                                                                )
+                                                            ) : (
+                                                                <Typography style={{fontSize : '15px' , fontWeight : 600}} >Could Not Load Images</Typography>
+                                                            )
                                                         }
-                                                        </Carousel>
-                                                        <Link to={`/singleProperty/${item?._id}`}>
-                                                                <div className="propDetail" >
-                                                                    <Typography className="propPrice" >${item?.price}</Typography>
-                                                                </div>
-                                                                <div style={{display : 'flex' , justifyContent : 'space-between' , alignItems : 'center' ,  minWidth : '220px'}}>
-                                                                    <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.baths} Baths</Typography>
-                                                                    <FontAwesomeIcon icon={faBath} color="#e17055" size="lg" />
-                                                                    <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.bedrooms} beds</Typography>
-                                                                    <FontAwesomeIcon icon={faBed} color="#6c5ce7" size="lg" />
-                                                                    <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.rooms} rooms</Typography>
-                                                                    <FontAwesomeIcon icon={faRestroom} color="#ff7675" size="lg" />
-                                                                </div>
-                                                                <Typography className=" propAddre">{item?.address}</Typography>
-                                                        </Link>
+                                                            <div className="propDetail" >
+                                                                <Typography className="propPrice" >${item?.price}</Typography>
+                                                                <Tooltip placement="bottom" title="Save for later">
+                                                                    <HeartOutlined style={{fontSize : '20px' , color : '#ff7675'}} onClick={() => saveLater(item?._id)} />
+                                                                </Tooltip>
+                                                            </div>
+                                                            <Link to={`/singleProperty/${item?._id}`}>
+                                                                    <div style={{display : 'flex' , justifyContent : 'space-between' , alignItems : 'center' ,  minWidth : '220px'}}>
+                                                                        <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.baths} Baths</Typography>
+                                                                        <FontAwesomeIcon icon={faBath} color="#e17055" size="lg" />
+                                                                        <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.bedrooms} beds</Typography>
+                                                                        <FontAwesomeIcon icon={faBed} color="#6c5ce7" size="lg" />
+                                                                        <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.rooms} rooms</Typography>
+                                                                        <FontAwesomeIcon icon={faRestroom} color="#ff7675" size="lg" />
+                                                                    </div>
+                                                                    <Typography className=" propAddre">{item?.address}</Typography>
+                                                            </Link>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Col>
+                                            </Col>
                                     ))
                                 }
-                                </Row>
+                                    </Row>
                                     <Pagination defaultCurrent={1}ds total={50} style={{textAlign : 'center' , marginTop : '25px'}} />
                             </>
                             ) : (

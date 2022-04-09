@@ -1,4 +1,4 @@
-import React , {useState , useEffect , useRef } from 'react'
+import React , {useState , useEffect  } from 'react'
 import { Row, Col ,Typography, Carousel , Pagination , Menu , Dropdown , Checkbox, Drawer , AutoComplete , Input ,  Spin ,  Button  , Tooltip , notification , message  } from 'antd';
 import './Properties.css'
 import { DownOutlined ,MenuOutlined ,HeartOutlined} from '@ant-design/icons'
@@ -288,6 +288,19 @@ const Properties = () => {
     };
 
     const [userId , setUserId ] = useState("")
+
+    //checking if admin logged in or not
+    useEffect(() => {
+      const checkAdmin = () => {
+        const user = JSON.parse(localStorage.getItem('profile'))
+        if (user) {
+            setUser(user?.User?._id)
+        } else {
+            setUser("")
+        }
+      }
+      checkAdmin();
+    }, [location])
 
    //checking if admin logged in or not
     useEffect(() => {
@@ -606,130 +619,130 @@ const Properties = () => {
             </Row>
 
             <Row style={{marginTop : '20px'}} >
-                    <Col xs={24} sm={24} md={{span : 22 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span: 12, offset : 1}} style={{marginBottom : '15px'}} >
-                        <Spin spinning={isSpinning} >
-                            <Typography className="propertyLeftSideHead" >All Homes Available in {myCity.charAt(0).toUpperCase() + myCity.slice(1)} are Given below</Typography>
-                            {
-                                allProperties?.length > 1 && (
-                                    <Typography className="propertyLeftSideSubHead" >{allProperties?.length} homes available</Typography>
-                                )
-                            }
-                            {
-                                ( ( allProperties?.length > 0 ) & ( allProperties?.length < 2 ) ) && (
-                                    <Typography className="propertyLeftSideSubHead" >{allProperties?.length} home available</Typography>
-                                )
-                            }
-                            {
-                                allProperties?.length < 1  && (
-                                    <Typography className="propertyLeftSideSubHead" >No home available</Typography>
-                                )
-                            }
-                        </Spin>
-                        <Spin spinning={isSpinning} >
+                <Col xs={24} sm={24} md={{span : 22 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span: 12, offset : 1}} style={{marginBottom : '15px'}} >
+                    <Spin spinning={isSpinning} >
+                        <Typography className="propertyLeftSideHead" >All Homes Available in {myCity.charAt(0).toUpperCase() + myCity.slice(1)} are Given below</Typography>
                         {
-                            allProperties?.length > 0 ? (
-                                <>
-                                <Row>
-                                {
-                                        allProperties?.map((item) => (
-                                        <Col xs={24} sm={12} md={12} lg={12} xl={12} >
-                                            <div className="propertyLeftSide" >
-                                                <div className="leftSideProperties" >
-                                                    <div className="property" >
-                                                    {
-                                                        item?.images ? (
-                                                            item?.images.length > 0 && (
-                                                                <Carousel className="caro" >
-                                                                {
-                                                                    item?.images?.map((immg) => (
-                                                                        <div  >
-                                                                            <img className="carrImagee" style={{borderRadius : '10px' , objectFit : 'cover'}} src={immg} width="100%" height="130" alt="Slider Cover" />
-                                                                        </div>
-                                                                    ))
-                                                                }
-                                                                </Carousel>
-                                                            )
-                                                        ) : (
-                                                            <Typography style={{fontSize : '15px' , fontWeight : 600}} >Could Not Load Images</Typography>
+                            allProperties?.length > 1 && (
+                                <Typography className="propertyLeftSideSubHead" >{allProperties?.length} homes available</Typography>
+                            )
+                        }
+                        {
+                            ( ( allProperties?.length > 0 ) & ( allProperties?.length < 2 ) ) && (
+                                <Typography className="propertyLeftSideSubHead" >{allProperties?.length} home available</Typography>
+                            )
+                        }
+                        {
+                            allProperties?.length < 1  && (
+                                <Typography className="propertyLeftSideSubHead" >No home available</Typography>
+                            )
+                        }
+                    </Spin>
+                    <Spin spinning={isSpinning} >
+                    {
+                        allProperties?.length > 0 ? (
+                            <>
+                            <Row>
+                            {
+                                    allProperties?.map((item) => (
+                                    <Col xs={24} sm={12} md={12} lg={12} xl={12} >
+                                        <div className="propertyLeftSide" >
+                                            <div className="leftSideProperties" >
+                                                <div className="property" >
+                                                {
+                                                    item?.images ? (
+                                                        item?.images.length > 0 && (
+                                                            <Carousel className="caro" >
+                                                            {
+                                                                item?.images?.map((immg) => (
+                                                                    <div  >
+                                                                        <img className="carrImagee" style={{borderRadius : '10px' , objectFit : 'cover'}} src={immg} width="100%" height="130" alt="Slider Cover" />
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                            </Carousel>
                                                         )
-                                                    }
-                                                                <div className="propDetail" >
-                                                                    <Typography className="propPrice" >${item?.price}</Typography>
-                                                                    <Tooltip placement="bottom" title="Save for later">
-                                                                        <HeartOutlined style={{fontSize : '20px' , color : '#ff7675'}} onClick={() => saveLater(item?._id)} />
-                                                                    </Tooltip>
-                                                                </div>
-                                                        <Link to={`/singleProperty/${item?._id}`}>
-                                                                <div style={{display : 'flex' , justifyContent : 'space-between' , alignItems : 'center' ,  minWidth : '220px'}}>
-                                                                    <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.baths} Baths</Typography>
-                                                                    <FontAwesomeIcon icon={faBath} color="#e17055" size="lg" />
-                                                                    <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.bedrooms} beds</Typography>
-                                                                    <FontAwesomeIcon icon={faBed} color="#6c5ce7" size="lg" />
-                                                                    <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.rooms} rooms</Typography>
-                                                                    <FontAwesomeIcon icon={faRestroom} color="#ff7675" size="lg" />
-                                                                </div>
-                                                                <Typography className=" propAddre">{item?.address}</Typography>
-                                                        </Link>
-                                                    </div>
+                                                    ) : (
+                                                        <Typography style={{fontSize : '15px' , fontWeight : 600}} >Could Not Load Images</Typography>
+                                                    )
+                                                }
+                                                            <div className="propDetail" >
+                                                                <Typography className="propPrice" >${item?.price}</Typography>
+                                                                <Tooltip placement="bottom" title="Save for later">
+                                                                    <HeartOutlined style={{fontSize : '20px' , color : '#ff7675'}} onClick={() => saveLater(item?._id)} />
+                                                                </Tooltip>
+                                                            </div>
+                                                    <Link to={`/singleProperty/${item?._id}`}>
+                                                            <div style={{display : 'flex' , justifyContent : 'space-between' , alignItems : 'center' ,  minWidth : '220px'}}>
+                                                                <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.baths} Baths</Typography>
+                                                                <FontAwesomeIcon icon={faBath} color="#e17055" size="lg" />
+                                                                <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.bedrooms} beds</Typography>
+                                                                <FontAwesomeIcon icon={faBed} color="#6c5ce7" size="lg" />
+                                                                <Typography className="innerDivText" style={{fontWeight : 600 , fontSize : '13px'}}>{item?.rooms} rooms</Typography>
+                                                                <FontAwesomeIcon icon={faRestroom} color="#ff7675" size="lg" />
+                                                            </div>
+                                                            <Typography className=" propAddre">{item?.address}</Typography>
+                                                    </Link>
                                                 </div>
                                             </div>
-                                        </Col>
-                                    ))
-                                }
-                                </Row>
-                                    <Pagination defaultCurrent={1}ds total={50} style={{textAlign : 'center' , marginTop : '25px'}} />
-                            </>
-                            ) : (
-                                <Typography className="noContentText" >No Properties Found</Typography>
-                            )
-                        }
-                        </Spin>
-                    </Col>
-                    <Col xs={{span : 23 , offset : 1}} sm={{span : 24 , offset : 0}} md={{span : 23 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span : 9 , offset : 0}} >
-                        {
-                            allProperties !== {} ? (
-                                <GoogleMap
-                                    mapContainerStyle={mapStyles}
-                                    zoom={13}
-                                    center={defaultCenter}
-                                    scrollwheel = {false}
-                                    streetViewControl = {false}
-                                    mapTypeControl = {false}
-                                    className="gglMap"
-                                > 
-                                    {
-                                            locations.map(item => {
-                                            return (
-                                                <Marker key={item.name}
-                                                    position={item.location}
-                                                    onClick={() => onSelect(item)}
-                                                    icon = 'https://img.icons8.com/material-rounded/2x/cottage--v2.png'
-                                                />
-                                                )
-                                            })
-                                        }
-                                        {
-                                            selected.location &&
-                                            (
-                                                <InfoWindow
-                                                    position={selected.location}
-                                                    clickable={true}
-                                                    onCloseClick={() => setSelected({})}
-                                                >
-                                                    <div style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
-                                                        <img alt="property cover" width="100%" height="70" src={selected?.image} />
-                                                        <Typography style={{fontSize: '15px' , fontWeight : 600  }} >{selected?.name}</Typography>
-                                                        <Typography style={{fontSize: '12px' , paddingTop : '10px'  }} >{selected?.address}</Typography>
-                                                    </div>
-                                                </InfoWindow>
+                                        </div>
+                                    </Col>
+                                ))
+                            }
+                            </Row>
+                                <Pagination defaultCurrent={1}ds total={50} style={{textAlign : 'center' , marginTop : '25px'}} />
+                        </>
+                        ) : (
+                            <Typography className="noContentText" >No Properties Found</Typography>
+                        )
+                    }
+                    </Spin>
+                </Col>
+                <Col xs={{span : 23 , offset : 1}} sm={{span : 24 , offset : 0}} md={{span : 23 , offset : 1}} lg={{span : 12 , offset : 0}} xl={{span : 9 , offset : 0}} >
+                    {
+                        allProperties !== {} ? (
+                            <GoogleMap
+                                mapContainerStyle={mapStyles}
+                                zoom={13}
+                                center={defaultCenter}
+                                scrollwheel = {false}
+                                streetViewControl = {false}
+                                mapTypeControl = {false}
+                                className="gglMap"
+                            > 
+                                {
+                                        locations.map(item => {
+                                        return (
+                                            <Marker key={item.name}
+                                                position={item.location}
+                                                onClick={() => onSelect(item)}
+                                                icon = 'https://img.icons8.com/material-rounded/2x/cottage--v2.png'
+                                            />
                                             )
-                                        }
-                                </GoogleMap>
-                            ) : (
-                                <Typography style={{fontSize : '20px', fontWeight : 700, marginTop : '150px' , color : '#c0392b' , textAlign : 'center' }} >Map Could Not be Displayed</Typography>
-                            )
-                        }
-                    </Col>
+                                        })
+                                    }
+                                    {
+                                        selected.location &&
+                                        (
+                                            <InfoWindow
+                                                position={selected.location}
+                                                clickable={true}
+                                                onCloseClick={() => setSelected({})}
+                                            >
+                                                <div style={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , flexDirection : 'column'}} >
+                                                    <img alt="property cover" width="100%" height="70" src={selected?.image} />
+                                                    <Typography style={{fontSize: '15px' , fontWeight : 600  }} >{selected?.name}</Typography>
+                                                    <Typography style={{fontSize: '12px' , paddingTop : '10px'  }} >{selected?.address}</Typography>
+                                                </div>
+                                            </InfoWindow>
+                                        )
+                                    }
+                            </GoogleMap>
+                        ) : (
+                            <Typography style={{fontSize : '20px', fontWeight : 700, marginTop : '150px' , color : '#c0392b' , textAlign : 'center' }} >Map Could Not be Displayed</Typography>
+                        )
+                    }
+                </Col>
             </Row>
 
             <Drawer
